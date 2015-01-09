@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{ margin:0;padding:0;}
+        #applePic{ position: relative; height:700px; width:100%; text-align: center; overflow: hidden;}
+        #applePic section{ position: absolute; left: 0; top:0; width:100%; text-align: center; background: #eee;}
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script>
+        $(function(){
+            var focusBox = $('#applePic');
+            var len = focusBox.find('.picBox').length;
+            var i = 0;
+            focusBox.find('.picBox:eq(0)').css({'opacity':1,'zIndex':2,'transition':'none 0s ease 0s'});
+            focusBox.find('.picBox:gt(0)').css({'opacity':0,'zIndex':1,'transition':'none 0s ease 0s'});
+
+            timer = setInterval(function(){
+                i++;
+                if(i > len-1){
+                    i = 0;
+                }
+                pic(i)
+
+            },3000)
+
+            function pic(i){
+                if(i > len-1){
+                    i = 0;
+                }
+                focusBox.find('.picBox').eq(i).css({'opacity':1,'zIndex':2,'transition':'opacity 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0s'})
+                        .next().css({'opacity':0,'zIndex':1,'transition':'none 0s ease 0s'})
+                ;
+                /*if( focusBox.find('.picBox').eq(i).attr('style').opacity != 1){
+                    console.log('1');
+                    focusBox.find('.picBox').eq(i).css({'opacity':1,'transition':'none 0s ease 0s'}).siblings().css({'opacity':0,'transition':'none 0s ease 0s'})
+                }*/
+            }
+        })
+    </script>
+</head>
+<body>
+<article id="applePic">
+    <section class="picBox">
+        <img src="image/1.jpg">
+    </section>
+    <section  class="picBox">
+        <img src="image/2.jpg">
+    </section >
+    <section class="picBox">
+        <img src="image/3.jpg">
+    </section>
+</article>
+</body>
+</html>
