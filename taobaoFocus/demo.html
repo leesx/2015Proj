@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{ margin:0 ;padding:0;}
+        ul,li{ list-style:none;}
+    </style>
+    <style>
+        .promo{ position: relative; width:520px; height: 280px; overflow: hidden; margin:100px auto 0;}
+        .promo ul{ position: relative;}
+        .promo ul li{ float:left; width:520px; height: 280px;}
+        #promoNav { position: absolute; left:0; bottom: 20px; width:100%; text-align:center;}
+        #promoNav span{ position: relative; display:inline-block; width:10px; height: 10px; margin:0 5px; background: #666; border-radius: 10px; z-index: 10;}
+        #promoNav .active{ background: #fff; height: 9px; width:9px; border:1px solid #08c;}
+    </style>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script>
+        $(function(){
+            var promoUl = $('#J_promo').find('ul');
+            var promoLiW = promoUl.find('li').width();
+            var promoNav = $('#promoNav');
+            var i = 1;
+            var j = 0;
+            var timer = null;
+            promoUl.find('li').eq(0).clone('true').prependTo(promoUl);
+            promoUl.find('li').eq(0).clone('true').appendTo(promoUl);
+            var len = promoUl.find('li').length;
+            promoUl.css({'width':len*promoLiW,'left':-520});
+            promoNav.find('span').eq(0).addClass('active').siblings().removeClass('active');
+            setInterval(function(){
+
+                i++;
+                promoNav.find('span').eq(i-1).addClass('active').siblings().removeClass('active');
+                if(i>len-1){
+                    i = 2;
+
+                }
+                console.log(i)
+                promoUl.animate({'left':-i*520},1000,function(){
+                    if(i == len-1){
+                        promoNav.find('span').eq(0).addClass('active').siblings().removeClass('active');
+                        promoUl.css({'left':-520});
+
+                    }
+                });
+            },2000)
+        })
+    </script>
+</head>
+<body>
+<div class="promo" id="J_promo">
+    <ul>
+        <li><img src="http://gtms01.alicdn.com/tps/i1/TB1_rtMHXXXXXamaXXXvKyzTVXX-520-280.jpg" alt=""/></li>
+        <li><img src="http://gtms02.alicdn.com/tps/i2/TB13ziRGVXXXXakaXXXvKyzTVXX-520-280.jpg" alt=""/></li>
+        <li><img src="http://i.mmcdn.cn/simba/img/TB12FfRGVXXXXcGaXXXSutbFXXX.jpg" alt=""/></li>
+        <li><img src="http://i.mmcdn.cn/simba/img/TB1fmBGHXXXXXc9XFXXSutbFXXX.jpg" alt=""/></li>
+        <li><img src="http://gtms02.alicdn.com/tps/i2/TB13ziRGVXXXXakaXXXvKyzTVXX-520-280.jpg" alt=""/></li>
+    </ul>
+    <div id="promoNav">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+
+</body>
+</html>
