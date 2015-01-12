@@ -5,13 +5,17 @@
     <title></title>
     <style>
         *{ margin:0;padding:0;}
-        #applePic{ position: relative; height:700px; width:100%; text-align: center; overflow: hidden;}
+        #applePic{ position: relative; height:500px; width:100%; text-align: center; overflow: hidden;}
         #applePic section{ position: absolute; left: 0; top:0; width:100%; text-align: center; background: #eee;}
+        #focusNav { position: absolute; left:0; bottom: 20px; width:100%; text-align:center;}
+        #focusNav li{ position: relative; display:inline-block; width:10px; height: 10px; background: #666; border-radius: 10px; z-index: 10;}
+        #focusNav .active{ background: #fff; height: 9px; width:9px; border:1px solid #08c;}
     </style>
     <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
     <script>
         $(function(){
             var focusBox = $('#applePic');
+            var focusNav = $('#focusNav');
             var len = focusBox.find('.picBox').length;
             var i = 0;
             focusBox.find('.picBox:eq(0)').css({'opacity':1,'zIndex':2,'transition':'none 0s ease 0s'});
@@ -20,23 +24,35 @@
             timer = setInterval(function(){
                 i++;
                 if(i > len-1){
-                    i = 0;
-                }
-                pic(i)
 
-            },3000)
+                    //当切换到最后一个图片时，需要对第一张图片，和最后一张图片处理
+                    focusNav.find('li').eq(0).addClass('active').siblings().removeClass('active');
+                    focusBox.find('.picBox:eq(0)').css({'opacity':1,'zIndex':2,'transition':'opacity 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0s'});
+                    focusBox.find('.picBox:eq('+ (len-1) +')').css({'zIndex':1});
+                    setTimeout(function(){
+                        focusBox.find('.picBox:eq(0)').css({'transition':'none 0s ease 0s'});
+                        focusBox.find('.picBox:eq('+ (len-1) +')').css({'opacity':0})
+                    },1500)
+                    i = 0;
+
+
+                }else{
+                    pic(i);
+                    //这里定时器使用是关键
+                    setTimeout(function(){
+                            focusBox.find('.picBox').eq(i).css({'transition':'none 0s ease 0s'}).prev().css({'opacity':0})
+                        },1500)
+                }
+
+                },3000)
 
             function pic(i){
-                if(i > len-1){
-                    i = 0;
-                }
+
                 focusBox.find('.picBox').eq(i).css({'opacity':1,'zIndex':2,'transition':'opacity 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0s'})
-                        .next().css({'opacity':0,'zIndex':1,'transition':'none 0s ease 0s'})
-                ;
-                /*if( focusBox.find('.picBox').eq(i).attr('style').opacity != 1){
-                    console.log('1');
-                    focusBox.find('.picBox').eq(i).css({'opacity':1,'transition':'none 0s ease 0s'}).siblings().css({'opacity':0,'transition':'none 0s ease 0s'})
-                }*/
+                .prev().css({'zIndex':1});
+                focusNav.find('li').eq(i).addClass('active').siblings().removeClass('active');
+
+
             }
         })
     </script>
@@ -52,6 +68,11 @@
     <section class="picBox">
         <img src="image/3.jpg">
     </section>
+    <ul id="focusNav">
+        <li class="active"></li>
+        <li></li>
+        <li></li>
+    </ul>
 </article>
 </body>
 </html>
