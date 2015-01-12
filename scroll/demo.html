@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝滚动</title>
+    <style>
+    *{ margin:0 ;padding:0;}
+    ul,li{ list-style:none;}
+    #scrollWrap{ position: relative; width:550px; margin:200px auto 0; overflow: hidden;}
+    #scrollWrap ul{ position: relative;}
+    #scrollWrap ul li{ float: left; width:100px; height: 100px; line-height: 100px; margin-right:10px; border:1px solid #ccc; background: #eee; font-size: 30px; text-align:center;}
+    .prevBtn,.nextBtn{position:absolute; width:30px;height: 30px; line-height: 30px; text-align: center; font-family:'MicroSoft Yahei'; color:#fff; background: #f60;top:39px; cursor: pointer;}
+    .prevBtn{ left:0;}
+    .nextBtn{ right:0;}
+
+</style>
+<link href="http://css.suning.cn/css/ShoppingArea/V10/index.min.css?v=2015010803613" rel="stylesheet" />
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script>
+    $(function(){
+        var scroll = $('#scrollWrap');
+        var scrollUl = scroll.find('ul');
+        var scrollLi = scrollUl.find('li');
+        var scrollLiWidth = scrollLi.outerWidth();
+        var len = scrollLi.length;
+        var timer = null;
+        var speed = -10;
+
+        var ScrollFn = {
+            scrollUl :function(eleUl,eleLi){
+                $(eleUl).css({'width':(scrollLiWidth+10)*len*2});
+                $(eleLi).clone().appendTo($(eleUl));
+            },
+            scroll : function(speed){
+                        var curLeft = scrollUl.position().left;
+                        scrollUl.css({'left':curLeft+speed});
+                        if(curLeft<-scrollUl.width()/2){
+                            scrollUl.css({'left':0});
+                        }else if(curLeft>0){
+                            scrollUl.css({'left':-scrollUl.width()/2});
+                        }
+            },
+            stop : function(){
+                 clearInterval(timer)
+            },
+            scrollDir : function(i){
+                if(i<0){
+
+                }
+            }
+
+        };
+        ScrollFn.scrollUl(scrollUl,scrollLi);
+
+        timer = setInterval(function(){
+            ScrollFn.scroll(speed);
+        },60);
+        $('.prevBtn').click(function(){
+            ScrollFn.scroll(-speed);
+            speed = -speed;
+        });
+        $('.nextBtn').click(function(){
+            ScrollFn.scroll(speed);
+            speed = -speed;
+        });
+        /*scrollUl.css({'width':(scrollLiWidth+10)*len*2});
+        scrollLi.clone().appendTo(scrollUl);
+        timer = setInterval(function(){
+            scrollPic();
+        },60);
+        function scrollPic(){
+            var curLeft = scrollUl.position().left;
+            scrollUl.css({'left':curLeft-10});
+            if(curLeft<-scrollUl.width()/2){
+                scrollUl.css({'left':0});
+            }
+        }*/
+        scroll.hover(function(){
+            ScrollFn.stop();
+        },function(){
+            timer = setInterval(function(){
+                ScrollFn.scroll(speed);
+            },60);
+        })
+
+    })
+</script>
+</head>
+<body>
+<div id="scrollWrap">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+    </ul>
+    <span class="prevBtn"> << </span><span href="" class="nextBtn"> >> </span>
+</div>
+</body>
+</html>

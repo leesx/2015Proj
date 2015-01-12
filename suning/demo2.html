@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>苏宁轮播图</title>
+<style>
+	*{ margin:0 ;padding:0;}
+	ul,li{ list-style:none;}
+</style>
+<link href="http://css.suning.cn/css/ShoppingArea/V10/index.min.css?v=2015010803613" rel="stylesheet" />
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script>
+        $(function(){
+            var sliderW = $('#slider').find('.main-ul');
+            var sliderLi = sliderW.children();
+            var sliderLiLen = sliderLi.length;
+            var sliderLiW = sliderLi.width();
+            var i = 0;
+            var timer = null;
+            //sliderW.css({'width':sliderLiLen*sliderLiW});
+
+            var myPlayPic = {
+                slidWrap : function(ele){
+                    $(ele).css({'width':sliderLiLen*sliderLiW})
+                },
+                prevBtn : function(){
+                    $('.ju-prev').click(function(){
+                        if(i == 0){
+                            $('#slider').find('.main-ul>li:eq(6)').css({'position':'relative','left':-sliderLiW*sliderLiLen});
+                            $('#slider').find('.main-ul>li:eq(7)').css({'position':'relative','left':-sliderLiW*sliderLiLen});
+                        }
+                        i--;
+                        if(i == -1){
+                            sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                                $('#slider').find('.main-ul>li').removeAttr('style');
+                                sliderW.css({'marginLeft':-(sliderLi.length-2)*sliderLiW});
+                            });
+                            i = (sliderLi.length/2)-1;
+                        }
+                        sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                            if(i == 0){
+                                $('#slider').find('.main-ul>li:eq(6)').css({'position':'relative','left':-sliderLiW*sliderLiLen});
+                                $('#slider').find('.main-ul>li:eq(7)').css({'position':'relative','left':-sliderLiW*sliderLiLen});
+                            }
+                        })
+                    });
+                },
+                nextBtn : function(){
+                    $('.ju-next').click(function(){
+                        if(i == (sliderLi.length/2)){
+                            $('#slider').find('.main-ul>li:eq(0)').css({'position':'relative','left':sliderLiW*sliderLiLen});
+                            $('#slider').find('.main-ul>li:eq(0)').css({'position':'relative','left':sliderLiW*sliderLiLen});
+                        }
+                        i++;
+                        if(i>(sliderLi.length/2)-1){
+                           sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                                $('#slider').find('.main-ul>li').removeAttr('style');
+                                sliderW.css({'marginLeft':0});
+                            });
+                            i = 0;
+                        }
+                        sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                            if(i == (sliderLi.length/2)-1){
+                                $('#slider').find('.main-ul>li:eq(0)').css({'position':'relative','left':sliderLiW*sliderLiLen});
+                                $('#slider').find('.main-ul>li:eq(1)').css({'position':'relative','left':sliderLiW*sliderLiLen});
+                            }
+                        })
+                    });
+                },
+                autoPlay : function(i){
+                    sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                        if(i == (sliderLi.length/2)-1){
+                            $('#slider').find('.main-ul>li:eq(0)').css({'position':'relative','left':sliderLiW*sliderLiLen});
+                            $('#slider').find('.main-ul>li:eq(1)').css({'position':'relative','left':sliderLiW*sliderLiLen});
+                        }
+                    })
+                }
+
+            };
+
+            myPlayPic.slidWrap(sliderW);
+            myPlayPic.nextBtn();
+            myPlayPic.prevBtn();
+
+            $('#slider').hover(function(){
+                clearInterval(timer);
+            },function(){
+                timer = setInterval(function(){
+                    i++;
+                    if(i>(sliderLi.length/2)-1){
+                        backStart();
+                    }
+                    myPlayPic.autoPlay(i);
+                },2000);
+            }).trigger('mouseenter');
+            timer = setInterval(function(){
+                i++;
+                if(i>(sliderLi.length/2)-1){
+                    backStart();
+                }
+                myPlayPic.autoPlay(i);
+            },2000);
+            /*function autoPlay(i){
+                sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                    if(i == (sliderLi.length/2)-1){
+                        $('#slider').find('.main-ul>li:eq(0)').css({'position':'relative','left':sliderLiW*sliderLiLen});
+                        $('#slider').find('.main-ul>li:eq(1)').css({'position':'relative','left':sliderLiW*sliderLiLen});
+                    }
+                })
+            }*/
+
+/*            $('.ju-next').click(function(){
+                i++;
+                if(i>(sliderLi.length/2)-1){
+                    backStart();
+                }
+                autoPlay(i)
+            });*/
+            /*$('.ju-prev').click(function(){
+                if(i == 0){
+                    $('#slider').find('.main-ul>li:eq(6)').css({'position':'relative','left':-sliderLiW*sliderLiLen});
+                    $('#slider').find('.main-ul>li:eq(7)').css({'position':'relative','left':-sliderLiW*sliderLiLen});
+                }
+                i--;
+                if(i == -1){
+                    sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                        $('#slider').find('.main-ul>li').removeAttr('style');
+                        sliderW.css({'marginLeft':-(sliderLi.length-2)*sliderLiW});
+                    });
+                    i = (sliderLi.length/2)-1;
+                }
+                sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                    if(i == 0){
+                        $('#slider').find('.main-ul>li:eq(6)').css({'position':'relative','left':-sliderLiW*sliderLiLen});
+                        $('#slider').find('.main-ul>li:eq(7)').css({'position':'relative','left':-sliderLiW*sliderLiLen});
+                    }
+                })
+            });*/
+
+            function backStart(){
+                sliderW.animate({'marginLeft':-sliderLiW*2*i},500,function(){
+                    $('#slider').find('.main-ul>li').removeAttr('style');
+                    sliderW.css({'marginLeft':0});
+                });
+                i = 0;
+            }
+
+        })
+    </script>
+<script></script>
+</head>
+
+<body>
+<div class="ju-slide-b ju-border" id="slider">
+  <div class="ju-left"> <a title="大聚惠" name="index_yxcp_djh_01" href="http://ju.suning.com/" target="_blank"> <img alt="大聚惠" src="http://image5.suning.cn/images/shop/cms/4225/1420632464791_1200.jpg"> </a>
+    <div class="ju-left-bg"> <img alt="大聚惠" src="http://image5.suning.cn/images/shop/cms/4225/1419155843085.png"> </div>
+  </div>
+  <div class="ju-bnr">
+    <ul class="main-ul">
+      <li class="main-li">
+        <ul class="sub-ul">
+          <li class="sub-li pt" id="juPrd1"><a href="http://ju.suning.com/comm/index-1-1.htm" name="index_yxcp_djh_07" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>1</p>
+              <span><em>9.3</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>2299</em></p>
+                <p class="orgl">¥2490.00</p>
+              </div>
+              <div class="num"><span><em>28</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="西门子洗衣机XQG60-WM08X0R01W" src="http://image5.suning.cn/b2c/catentries/000000000108752482_1_400x400.jpg"></div>
+            </a></li>
+          <li class="sub-li pb" id="juPrd2"><a href="http://ju.suning.com/comm/index-1-10.htm" name="index_yxcp_djh_08" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>1</p>
+              <span><em>7.8</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>22.90</em></p>
+                <p class="orgl">¥29.50</p>
+              </div>
+              <div class="num"><span><em>824</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="银鹭花生牛奶250ml*16" src="http://image2.suning.cn/b2c/catentries/000000000104549178_1_400x400.jpg"></div>
+            </a></li>
+        </ul>
+      </li>
+      <li class="main-li">
+        <ul>
+          <li class="sub-li pt" id="juPrd3"><a href="http://ju.suning.com/comm/index-1-11.htm" name="index_yxcp_djh_09" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>1</p>
+              <span><em>7.5</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>8.90</em></p>
+                <p class="orgl">¥11.90</p>
+              </div>
+              <div class="num"><span><em>351</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="维达 抽纸 倍韧2层200抽纸巾*3包（中规格）" src="http://image3.suning.cn/b2c/catentries/000000000103791383_1_400x400.jpg"></div>
+            </a></li>
+          <li class="sub-li pt"> <a class="sub-li-a clearfix" href="http://ju.suning.com/brandGroup-2.htm" name="index_yxcp_djh_02" target="_blank">
+            <div class="grab">
+              <div class="show-brand"> <img alt="暖有心，爱无限" src="http://image2.suning.cn/images/shop/cms/4225/1420632627031.jpg"> <span>1</span> </div>
+              <div class="time-left"> <i class="watch"></i>
+                <p data-time="1420819199000" class="J-time-left"> <span class="days">01天</span> <span class="hours">09</span><i class="time-split">:</i> <span class="minutes">46</span><i class="time-split">:</i> <span class="secs">39</span> </p>
+              </div>
+              <div class="right-now">
+                <div class="discount"><span><em>2.0</em>折</span></div>
+                <div class="angle"><i></i></div>
+                <div class="txt-btn"><span>马上抢</span></div>
+              </div>
+            </div>
+            </a> </li>
+        </ul>
+      </li>
+      <li class="main-li">
+        <ul class="sub-ul">
+          <li class="sub-li pt" id="juPrd4"><a href="http://ju.suning.com/comm/index-1-17.htm" name="index_yxcp_djh_10" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>2/p>
+              <span><em>8.0</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>279</em></p>
+                <p class="orgl">¥353.00</p>
+              </div>
+              <div class="num"><span><em>577</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="美的微波炉MM721NH1-PW" src="http://image3.suning.cn/b2c/catentries/000000000102327045_1_400x400.jpg"></div>
+            </a></li>
+          <li class="sub-li pb" id="juPrd5"><a href="http://ju.suning.com/comm/index-1-2.htm" name="index_yxcp_djh_11" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>2</p>
+              <span><em>9.9</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>1245</em></p>
+                <p class="orgl">¥1269.00</p>
+              </div>
+              <div class="num"><span><em>1</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="魅族 魅蓝note 16GB 白色 移动4G手机 双卡双待" src="http://image3.suning.cn/b2c/catentries/000000000125522947_1_400x400.jpg"></div>
+            </a></li>
+        </ul>
+      </li>
+      <li class="main-li">
+        <ul>
+          <li class="sub-li pt" id="juPrd6"><a href="http://ju.suning.com/comm/index-1-3.htm" name="index_yxcp_djh_12" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>2</p>
+              <span><em>6.0</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>59</em></p>
+                <p class="orgl">¥99.00</p>
+              </div>
+              <div class="num"><span><em>22</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="百依恋歌冬季新款韩版衬衫女士大码时尚英伦风长袖纯棉加绒格子衬衣8868" src="http://image3.suning.cn/b2c/catentries/000000000107954778_1_400x400.jpg"></div>
+            </a></li>
+          <li class="sub-li pt"> <a class="sub-li-a clearfix" href="http://ju.suning.com/brandComm-2-9815-1.htm" name="index_yxcp_djh_03" target="_blank">
+            <div class="grab">
+              <div class="show-brand"> <img alt="让嘴巴去旅行" src="http://image4.suning.cn/images/shop/cms/4225/1420539144259.png"> <span>让嘴巴去旅行</span> </div>
+              <div class="time-left"> <i class="watch"></i>
+                <p data-time="1420819199000" class="J-time-left"> <span class="days">01天</span> <span class="hours">09</span><i class="time-split">:</i> <span class="minutes">46</span><i class="time-split">:</i> <span class="secs">39</span> </p>
+              </div>
+              <div class="right-now">
+                <div class="discount"><span><em>3.3</em>折</span></div>
+                <div class="angle"><i></i></div>
+                <div class="txt-btn"><span>马上抢</span></div>
+              </div>
+            </div>
+            </a> </li>
+        </ul>
+      </li>
+      <li class="main-li">
+        <ul class="sub-ul">
+          <li class="sub-li pt" id="juPrd7"><a href="http://ju.suning.com/comm/index-1-4.htm" name="index_yxcp_djh_13" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>3</p>
+              <span><em>1.8</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>68</em></p>
+                <p class="orgl">¥398.00</p>
+              </div>
+              <div class="num"><span><em>99</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="比菲力男士休闲裤 男加绒裤加绒加厚款直筒长裤 男裤子 冬秋装" src="http://image1.suning.cn/b2c/catentries/000000000123151035_1_400x400.jpg"></div>
+            </a></li>
+          <li class="sub-li pb" id="juPrd8"><a href="http://ju.suning.com/comm/index-1-5.htm" name="index_yxcp_djh_14" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>3</p>
+              <span><em>2.5</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>99</em></p>
+                <p class="orgl">¥399.00</p>
+              </div>
+              <div class="num"><span><em>158</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="瑞士军刀（SWISSGEAR） SA-9393 超强升级版防水1680D面料时尚休闲双肩笔记本电脑背包 黑色" src="http://image2.suning.cn/b2c/catentries/000000000106984298_1_400x400.jpg"></div>
+            </a></li>
+        </ul>
+      </li>
+      <li class="main-li">
+        <ul>
+          <li class="sub-li pt" id="juPrd9"><a href="http://ju.suning.com/comm/index-1-6.htm" name="index_yxcp_djh_15" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>4</p>
+              <span><em>2.7</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>209</em></p>
+                <p class="orgl">¥798.00</p>
+              </div>
+              <div class="num"><span><em>23</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="凯仕达 户外冲锋衣两件套三合一抓绒内胆冲锋衣 男女款 防风防水KD8110-1" src="http://image2.suning.cn/b2c/catentries/000000000122498254_1_400x400.jpg"></div>
+            </a></li>
+          <li class="sub-li pt"> <a class="sub-li-a clearfix" href="http://ju.suning.com/brandComm-2-9727-1.htm" name="index_yxcp_djh_04" target="_blank">
+            <div class="grab">
+              <div class="show-brand"> <img alt="有故事的手袋" src="http://image2.suning.cn/images/shop/cms/4225/1420539095357.png"> <span>有故事的手袋</span> </div>
+              <div class="time-left"> <i class="watch"></i>
+                <p data-time="1420819199000" class="J-time-left"> <span class="days">01天</span> <span class="hours">09</span><i class="time-split">:</i> <span class="minutes">46</span><i class="time-split">:</i> <span class="secs">39</span> </p>
+              </div>
+              <div class="right-now">
+                <div class="discount"><span><em>8.8</em>折</span></div>
+                <div class="angle"><i></i></div>
+                <div class="txt-btn"><span>马上抢</span></div>
+              </div>
+            </div>
+            </a> </li>
+        </ul>
+      </li>
+      <li class="main-li">
+        <ul class="sub-ul">
+          <li class="sub-li pt" id="juPrd10"><a href="http://ju.suning.com/comm/index-1-7.htm" name="index_yxcp_djh_16" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>久久达 卡通挂钟客厅个性创意时尚静音时钟 儿童卧室装饰挂钟礼品2265</p>
+              <span><em>8.3</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>29</em></p>
+                <p class="orgl">¥35.00</p>
+              </div>
+              <div class="num"><span><em>12</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="久久达 卡通挂钟客厅个性创意时尚静音时钟 儿童卧室装饰挂钟礼品2265" src="http://image1.suning.cn/b2c/catentries/000000000125214053_1_400x400.jpg"></div>
+            </a></li>
+          <li class="sub-li pb" id="juPrd11"><a href="http://ju.suning.com/comm/index-1-8.htm" name="index_yxcp_djh_17" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>海飞丝去屑洗发露(清爽去油型)750毫升</p>
+              <span><em>6.6</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>49.90</em></p>
+                <p class="orgl">¥75.90</p>
+              </div>
+              <div class="num"><span><em>169</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="海飞丝去屑洗发露(清爽去油型)750毫升" src="http://image4.suning.cn/b2c/catentries/000000000101822310_1_400x400.jpg"></div>
+            </a></li>
+        </ul>
+      </li>
+      <li class="main-li">
+        <ul>
+          <li class="sub-li pt" id="juPrd12"><a href="http://ju.suning.com/comm/index-1-81.htm" name="index_yxcp_djh_18" target="_blank" class="sub-li-a clearfix">
+            <div class="thm">
+              <p>美驰 汽车方向盘套 冬季 毛绒汽车把套 高档毛绒方向盘套 毛绒把套 通用方向盘套中号</p>
+              <span><em>4.5</em>折</span></div>
+            <div class="price-order">
+              <div class="price">
+                <p class="now">¥<em>19</em></p>
+                <p class="orgl">¥43.00</p>
+              </div>
+              <div class="num"><span><em>11</em>人购买</span></div>
+            </div>
+            <div class="pic"><img alt="美驰 汽车方向盘套 冬季 毛绒汽车把套 高档毛绒方向盘套 毛绒把套 通用方向盘套中号" src="http://image1.suning.cn/b2c/catentries/000000000124868233_1_400x400.jpg"></div>
+            </a></li>
+          <li class="sub-li ju-life"> <a href="http://www.manzuo.com/suning/dajuhui?campaign=sunningDJH" name="index_yxcp_djh_05" target="_blank" class="sub-li-a clearfix"><img alt="生活" src="http://image4.suning.cn/images/shop/cms/4225/1420632637851.jpg"></a> </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <a class="banner-arr ju-prev" name="index_yxcp_djh_19" href="javascript:void(0);"> <span class="shadow"></span> <i class="arr"></i>
+  <p class="num" style="display: none;"> <span class="current">4</span>/<span class="total">4</span> </p>
+  </a> <a class="banner-arr ju-next" name="index_yxcp_djh_20" href="javascript:void(0);"> <span class="shadow"></span> <i class="arr"></i>
+  <p class="num"> <span class="current">4</span>/<span class="total">4</span> </p>
+  </a> </div>
+</body>
+</html>
