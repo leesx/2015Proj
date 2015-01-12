@@ -1,0 +1,120 @@
+@charset "utf-8";
+/*
+*2014-5-4
+*眼镜网_资讯页面列表页
+*/
+
+.grid-670{width:670px;border:1px solid #e0e0e0;border-top:2px solid #F28300;}
+.grid-670 .info-path{height:29px;line-height:29px;padding-left:15px;color:#000;border-bottom:1px solid #e0e0e0;background:url(../images/z-title-bg.gif) 0 0 repeat-x scroll;}
+.info-path span{font-family:"宋体";color:#ccc;padding:0 8px;}
+.info-list{padding:0 15px 15px;}
+.info-list ul{padding:10px 0;border-bottom:1px dotted #333;overflow:hidden;}
+.info-list li{height:30px;line-height:30px;padding-left:8px;background:url(/images/common-icon-3_77bb3aa.png) 0 13px no-repeat scroll;}
+.info-list li a{ display:block; max-width:540px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.info-list li span{float:right;color:#666;}
+.page-num{text-align:center;margin:22px 0;}
+.page-num a,.page-num span{display:inline-block;padding:0 8px;margin-right:8px;height:22px;line-height:24px;border:1px solid #e0e0e0;}
+.page-num .page-cur{background:#ef3907;color:#fff;}
+.page-num .page-break{border:0 none;}
+.page-num button{width:40px;height:23px;line-height:23px;margin-left:5px;border:1px solid #c9c9c9;background-color:#f9f9f9; cursor:pointer;}
+.page-num .txt{width:34px;height:20px;margin:0 3px; box-shadow:0 1px 2px #E0E0E0 inset;border:1px solid #e0e0e0;border-top:1px solid #dcdcdc;}
+
+.grid-320{width:320px;}
+.grid-320 .info-mod{border:1px solid #e0e0e0;margin-bottom:10px;}
+.info-mod .info-mod-t{height:30px;line-height:30px;padding-left:20px;background-color:#f5f5f5;border-bottom:1px solid #e4e4e4;}
+.info-mod .info-mod-t h4{font-size:14px;font-weight:bold;}
+.info-mod .info-mod-c{padding:10px;}
+.pic-wonderful{margin-bottom:10px;}
+.pic-wonderful img{width:130px;height:96px;padding:3px;border:1px solid #f5f5f5;}
+.pic-wonderful p{text-align:center;}
+.txt-wonderful li,.click-rank li,.cell-rank li{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+.txt-wonderful li{float:left;display:inline;width:138px;height:22px;line-height:22px;padding-left:10px;background:url(/images/common-icon-3_77bb3aa.png) 3px 9px no-repeat scroll;}
+.click-rank { width:280px; margin:0 auto;}
+.click-rank li{line-height:25px;height:25px;}
+.click-rank li span{display:inline-block;width:25px;height:12px;line-height:12px;margin-right:5px;font-weight:bold;background:url(/images/common-icon-3_77bb3aa.png) 0 -43px no-repeat scroll;font-family:"宋体";text-align:center;}
+.click-rank .rk1,.click-rank .rk2,.click-rank .rk3{background-position:0 -19px;color:#ff0000;}
+.click-rank .rk2{color:#ff6600;}
+.click-rank .rk3{color:#fe9600;}
+
+.info-detail-article{}
+.info-detail-article .title{padding:24px 20px;border-bottom:1px solid #e3e3e3;}
+.info-detail-article .title h1{font-size:25px;font-weight:500;line-height:28px;font-family:"Microsoft YaHei";color:#000;text-align:center;}
+.info-detail-article .title a{color:#666;}
+.info-detail-article .title .other{margin-top:20px;text-align:center;color:#666;}
+.other .origin{color:#ef3907;margin-right:10px;}
+.other .print{color:#006699;margin-left:10px;padding-left:16px;background:url(/images/common-icon-3_77bb3aa.png) 0 -70px no-repeat scroll;}
+.d-footer{position:relative;}
+.d-footer .bdsharebuttonbox{position:absolute;top:-5px;left:60px;}
+.detail{padding:10px 26px;border-top:2px solid #ededed;}
+.detail .d-content{font-size:14px;line-height:25px;}
+.detail .editor{text-align:right;color:#888888;}
+.statement{width:580px;margin:0 auto;line-height:25px;padding:10px;border:1px solid #e0e0e0;background:#f8f8f8;color:#777;}
+.info-detail-pn{position:relative;height:50px;line-height:50px;margin:28px 0 20px 0;font-size:14px;border-top:1px solid #e0e0e0;border-bottom:1px solid #e0e0e0;background:#f8f8f8;}
+.info-detail-pn span{color:#888;}
+.info-detail-pn .prev{float:left;width:334px;border-right:1px solid #e0e0e0;text-align:center;}
+.info-detail-pn .next{text-align:center;}
+.info-detail-pn i{position:relative;top:6px;display:inline-block;width:14px;height:23px;background:url(/images/common-icon-3_77bb3aa.png) 0 -104px no-repeat scroll;}
+.info-detail-pn .prev i{right:16px;}
+.info-detail-pn .next i{left:16px;background:url(/images/common-icon-3_77bb3aa.png) -20px -104px no-repeat scroll;}
+.related-recommend{padding:20px 30px;}
+.related-recommend h4{font-size:14px;margin-bottom:10px;color:#000;}
+.related-recommend li{float:left;width:290px;height:22px;line-height:22px;padding-left:10px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:url(/images/common-icon-3_77bb3aa.png) 3px 9px no-repeat scroll;}
+.pro-recommend{width:272px;margin:0 auto;overflow:hidden;}
+.pro-recommend ul{width:280px;}
+.pro-recommend li{float:left;width:132px;margin-right:8px;margin-bottom:10px;text-align:center;}
+.pro-recommend img{padding:4px;border:1px solid #f5f5f5;}
+.pro-recommend .pro-name{text-align:left;height:40px;}
+.pro-recommend .price{color:#ff7300;}
+
+/*帮助中心*/
+.bread-crumbs{ height:25px; line-height:25px;}
+.bread-crumbs a{ display:inline-block; padding:0 10px 0 20px; background:url(/images/help-arrow_33938f1.gif) 0 6px no-repeat scroll;}
+.detailmenu {
+    width: 200px;
+	 border: 1px solid #F3B368;
+}
+.detailmenu-hd {
+    height: 30px;
+	 line-height:30px;
+	  padding-left:20px;
+	  background:#F3B368;
+	   color:#fff;
+}
+
+.detailmenulist ul {
+    list-style: none outside none;
+    margin: 0;
+    padding-bottom: 6px;
+    padding-top: 4px;
+}
+.detailmenulist ul li {
+    background: url("/images/helps06_d313d93.gif") 10px 8px no-repeat;
+    font-size: 12px;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    padding-left: 20px;
+    width: 172px;
+}
+.detailmenulist .cur a{ color:#F28300;}
+.dmtitle {
+    background-color: #FEECD7;
+    height: 24px;
+    line-height: 24px;
+    margin-bottom: 4px;
+    padding-left: 12px;
+}
+.dmtitle span {
+    color: #484747;
+    font-weight: 700;
+}
+.helpdetailcontent {
+    width:788px;
+}
+.detailtitle {
+    background-color: #FEECD7;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 12px;
+}
+.detailcontent{ padding:20px 10px; line-height:25px;}

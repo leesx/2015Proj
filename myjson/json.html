@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>json</title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            var json = {
+            "message": "",
+            "error": "",
+            "data": {
+                "question_id": "11151",
+                "question": [
+                    {
+                        "status": 0,
+                        "option": [
+                            {
+                                "content": "小数，整数",
+                                "images": [],
+                                "image": {},
+                                "option": "A",
+                                "is_right": "0"
+                            },
+                            {
+                                "content": "整数 ， 小数",
+                                "images": [],
+                                "image": {},
+                                "option": "B",
+                                "is_right": "1"
+                            }
+                        ],
+                        "my_answer": "",
+                        "ask_id": "14689",
+                        "result": 0,
+                        "answer": [
+                            {
+                                "content": "整数 ， 小数",
+                                "images": [],
+                                "image": {},
+                                "option": "B",
+                                "is_right": "1"
+                            }
+                        ],
+                        "subject": {
+                            "content": "小数点把小数分成了两部分，小数点左面的是（ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ）部分，右面的是<br />（　　　）部分。",
+                            "images": [],
+                            "image": {}
+                        }
+                    }
+                ],
+                "display": "4",
+                "subject": {
+                    "content": "填空。",
+                    "images": [],
+                    "image": {}
+                }
+            },
+            "response": "ok",
+            "next": ""
+        };
+
+        if(json.response === 'ok'){
+            var data = json.data
+            console.log('请求成功');
+            console.log(data);
+            var temp = '';
+            temp += '<dl>'
+            $.each(data,function(i){
+                temp += '<dt>'+ data.question_id +'</dt>';
+            });
+            var oQustion = data.question;
+            $.each(oQustion,function(i){
+                var oTitle = this.subject;// 注意 是this
+                temp += ('<dd ask_id="' + this.ask_id + '" ans="' + this.answer[0].option + '"><p>' + oTitle.content + ( oTitle.image.url ? ( '<img src="' + oTitle.image.url + '" alt="" />' ) : '' ) + '</p>');
+                var oOptions = this.option;
+
+                $.each(oOptions,function(i){
+                    temp += ('<spam>'+ (i+1) +'</span><p>' + this.content + (this.image.url ? ('<img src="'+ this.image.url +'" />') : '') + '</P>');
+                });
+            });
+
+
+            temp += '</dl>';
+            $('#box').html(temp);
+            console.log($('#box').length)
+
+        }
+
+        })
+    </script>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>
