@@ -13,7 +13,7 @@
                 "question_id": "11151",
                 "question": [
                     {
-                        "status": 0,
+                        "status": 1,
                         "option": [
                             {
                                 "content": "小数，整数",
@@ -30,7 +30,7 @@
                                 "is_right": "1"
                             }
                         ],
-                        "my_answer": "",
+                        "my_answer": "A",
                         "ask_id": "14689",
                         "result": 0,
                         "answer": [
@@ -65,20 +65,39 @@
             console.log('请求成功');
             console.log(data);
             var temp = '';
-            temp += '<dl>'
+            temp += '<dl>';
             $.each(data,function(i){
                 temp += '<dt>'+ data.question_id +'</dt>';
             });
-            var oQustion = data.question;
-            $.each(oQustion,function(i){
-                var oTitle = this.subject;// 注意 是this
-                temp += ('<dd ask_id="' + this.ask_id + '" ans="' + this.answer[0].option + '"><p>' + oTitle.content + ( oTitle.image.url ? ( '<img src="' + oTitle.image.url + '" alt="" />' ) : '' ) + '</p>');
-                var oOptions = this.option;
+            var oQustion = data.question;//这里是data
+            var quetionsType = data.display;
+            console.log(quetionsType);
+            if(quetionsType == 4){
+                $.each(oQustion,function(i){
+                    var oTitle = this.subject;// 注意 是this
+                    temp += ('<dd ask_id="' + this.ask_id + '" ans="' + this.answer[0].option + '"><p>' + oTitle.content + ( oTitle.image.url ? ( '<img src="' + oTitle.image.url + '" alt="" />' ) : '' ) + '</p>');
 
-                $.each(oOptions,function(i){
-                    temp += ('<spam>'+ (i+1) +'</span><p>' + this.content + (this.image.url ? ('<img src="'+ this.image.url +'" />') : '') + '</P>');
+                    if(this.status == 0){
+                        console.log('尚未做过')
+                    }else{
+                        console.log('做过')
+                        var myAns = this.my_answer;
+                        var rightAns = this.answer[0].option;
+                        if(myAns == rightAns){
+                            temp += ('对了了——————<p>正确答案：'+ rightAns +'</p>');
+                        }else{
+                            temp += ('<p>你的答案是：'+ myAns +'</p>');
+                        }
+                    }
+                    var oOptions = this.option;
+                    //循环遍历option
+                    $.each(oOptions,function(i){
+                        temp += ('<span>'+ (i+1) +'</span><p>' + this.content + (this.image.url ? ('<img src="'+ this.image.url +'" />') : '') + '</P>');
+                    });
+
                 });
-            });
+            }
+
 
 
             temp += '</dl>';
