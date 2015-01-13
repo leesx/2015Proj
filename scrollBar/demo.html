@@ -5,7 +5,7 @@
     <title>模拟滚动条</title>
     <style type="text/css">
         body{ margin: 0; padding: 0;}
-        #Box{ position: relative; width: 167px; height: 302px; overflow: hidden; margin: 40px auto;}
+        #scrollBox{ position: relative; width: 167px; height: 302px; overflow: hidden; margin: 40px auto;}
         #scrollBar{position:absolute;top:0; right:0;  width: 15px; height:100%;background: #eee;}
         #bar{ display: block; width: 8px; height: 60px; border-radius: 5px; background: #ccc;position: absolute; left:3px; cursor: pointer; z-index: 99; float: right;}
         #scrollWrap{width: 150px; height: 300px; border:#000000 solid 1px;position: relative; overflow:hidden; float: left;}
@@ -23,24 +23,23 @@
             var diff2 = scrollCon.height()-scrollWrap.height();
 
             //鼠标滚轮事件
-            scrollWrap.bind('mousewheel', function(event, delta) {
-                //var delta = 10;
-                var dir = delta > 0 ? 'Up' : 'Down';
-                var oTop=bar.position().top;  //注意position().top   而不是position.top
+            $('#scrollBox').bind('mousewheel', function(event, delta) {
+             //var delta = 10;
+             //var dir = delta > 0 ? 'Up' : 'Down';
+             var oTop=bar.position().top;  //注意position().top   而不是position.top
+             if(oTop > diff1){
+                bar.css({'top':diff1});
+             }else if(oTop < 0){
+                bar.css({'top':0});
+             }else{
+                 bar.css({'top':oTop+(delta*20)});
+             }
 
-                bar.css({'top':oTop+(delta*20)});
-                console.log('oTop:'+oTop);
-                console.log('diff1:'+diff1);
-                if(oTop > diff1){
-                    bar.css({'top':diff1});
-                }else if(oTop < 0){
-                    bar.css({'top':0});
-                }
-                var scale=oTop / diff1;//获取右边条  滚动的距离与 高度差的比例
-                scrollCon.css({'top':-scale*diff2});
+             var scale=oTop / diff1;//获取右边条  滚动的距离与 高度差的比例
+             scrollCon.css({'top':-scale*diff2});
 
-                return false;
-            });
+             return false;
+             });
 
             //鼠标按下事件
             bar.mousedown(function(e){
@@ -126,7 +125,7 @@
 
 </head>
 <body>
-<div id="Box">
+<div id="scrollBox">
     <div id="scrollWrap">
         <div id="scrollCon">
             JavaScript是一种基于对象和事件驱动并具有相对安全性的客户端脚本语言。同时也是一种广泛用于客户端Web开发的脚本语言，常用来给HTML网页添加动态功能，比如响应用户的各种操作。它最初由网景公司（Netscape）的Brendan Eich设计，是一种动态、弱类型、基于原型的语言，内置支持类。JavaScript是Sun公司的注册商标。Ecma国际以JavaScript为基础制定了ECMAScript标准。JavaScript也可以用于其他场合，如服务器端编程。完整的JavaScript实现包含三个部分：ECMAScript，文档对象模型，字节顺序记号。
