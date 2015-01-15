@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>
+        面向对象编程
+    </title>
+    <script>
+        //子元素
+        function Cat(name,color) {
+            this.name = name;
+            this.color =color;
+        }
+
+        //父级
+        function Animal(){
+            this.speice = '动物';
+        }
+
+        Cat.prototype = new Animal();//继承
+        Cat.prototype.constructor = Cat;//重新指向Cat
+
+        Cat.prototype.type = '猫科动物';
+        Cat.prototype.eat = function(){
+            alert('猫会吃老鼠！');
+        };
+
+
+
+
+        //实例化
+        var cat1 =new Cat('大脸猫', '黑色');//不要忘记了加new 实例化
+        var cat2 =new Cat('大花猫', '白色');
+
+
+        alert(cat1.name);
+        alert(cat2.color);
+        alert(cat1.type);
+        cat2.eat();
+        alert(cat1.constructor === Cat);
+        alert(cat1.speice);
+    </script>
+</head>
+<body>
+
+</body>
+</html>
