@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>this的使用</title>
+    <script>
+        var point ={
+            x : 0,
+            y : 0,
+            moveTo : function(x,y){
+                var that = this;
+                //内部函数
+                var moveX = function(){
+                    that.x = x;
+                };
+                //内部函数
+                var moveY = function(){
+                    that.y = y;
+                };
+                moveX(x);
+                moveY(y)
+            }
+        };
+        point.moveTo(1,1);
+        alert(point.x);
+
+    </script>
+    <script>
+        function myConstructor(message){
+            this.myMessage = message;
+
+            //私有属性
+            var separator = ' -';
+            var myOwner = this;
+            //私有方法
+            function alertMessage(){
+                alert(myOwner.myMessage)
+            }
+            alertMessage();
+
+            //特权方法（也是共有方法）
+            this.appendToMessage = function(string){
+                this.myMessage += separator + string;
+                alertMessage()
+            }
+        }
+
+        var myObject = new myConstructor('Hello World');
+        myObject.appendToMessage('Jeff')
+    </script>
+
+    <script>
+        function myConstructor(){
+            //私有和特权成员
+        }
+        //公有成员
+        myConstructor.prototype = {
+            propertyA : 'A',
+            propertyB : 'B',
+            methodA : function(){},
+            methodB :function(){}
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

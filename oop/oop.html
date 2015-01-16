@@ -39,6 +39,43 @@
         cat2.eat();
         alert(cat1.constructor === Cat);
         alert(cat1.speice);
+
+
+        //深拷贝
+        function deepCopy(p,c){
+            var c = c || {};
+            for(var i in p){
+                if(typeof p[i] === 'object'){
+                    c[i] = (p[i].constructor === Array) ? [] : {};
+                    deepCopy(p[i],c[i]);
+                } else{
+                    c[i] = p[i];
+                }
+            }
+            return c;
+        }
+
+        //构造函数的继承
+        function Cat(name,color){
+            Animal.apply(this,arguments);
+            this.name = name;
+            this.color = color;
+        }
+
+        //利用空对象作为中介
+         var F = function(){};
+        F.prototype = Animal.prototype;
+        Cat.prototype = new F();
+        Cat.prototype.constructor = Cat;
+
+        //封装继承方法
+        function extend(Child, Parent){
+            var F = function(){};
+            F.prototype = Parent.prototype;
+            Child.prototype = new F();
+            Child.prototype.constructor = Child;
+            Child.uber = Parent.prototype;
+        }
     </script>
 </head>
 <body>
