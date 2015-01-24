@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+body{ font-size:12px;}
+#div1{ width:400px; margin:20px auto;}
+#div1 p{ float:right; margin:0;}
+#div1 textarea{ width:400px; height:100px;}
+#div1 a{ width:50px; height:30px; font-size:16px; line-height:30px; text-align:center; float:right; background:#00FF00; color:#FFFFFF;}
+#div1 a.dis{ background:#CCCCCC; color:#666666;}
+</style>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var flag = true;
+		$('#textarea').focus(function(){
+			$(this).prev().html('打击虚假消息，建设文明微博，<span>还可以输入</span><span class="wordnum">140</span>字');
+		   	getNum()
+		}).blur(function(){
+			if($(this).val() == ''){
+				$(this).prev().html('《新浪微博社区公约(征求意见稿)》意见征求');
+				$('#pub').addClass('dis');
+			}
+			
+		}).bind('input propertychange', function() {
+			if($(this).val() == ''){
+				$('#pub').addClass('dis');
+			}
+		   	getNum()
+		    
+		});
+		function getNum(){
+			var str = $('#textarea').val()
+			//var num = $('.wordnum').html();
+			var len = Math.ceil((String(str).replace(/[^\x00-\xff]/g,'aa').length)/2);
+		    //console.log(num);
+		    if(len>0){
+		    	$('#pub').removeClass('dis');
+		    }
+		    if(len > 5){
+		    	$('.wordnum').html(len-5).css({'color':'red'}).prev().html('已超过');
+		    	$('#pub').addClass('dis');
+		    }else{
+		    	$('.wordnum').html(5-len).css({'color':''}).prev().html('还可以输入');
+		    }
+		}
+		$('#pub').click(function(){
+			var str = $('#textarea').val();
+			var len = Math.ceil((String(str).replace(/[^\x00-\xff]/g,'aa').length)/2);
+			var i = 0;
+			var timer = null;
+			clearInterval(timer);
+			if(len>5 || str == ''){
+				timer = setInterval(function(){
+					i++;
+					if(i == 5){
+						i = 0;
+						clearInterval(timer);
+					}
+					if(i%2){
+						$('#textarea').css({'backgroundColor':'#f00'})
+					}else{
+						$('#textarea').css({'backgroundColor':''})
+					}
+					
+				},100)
+			}
+		})
+	})
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<p class="title">《新浪微博社区公约(征求意见稿)》意见征求</p>
+    <textarea id="textarea"></textarea>
+    <a id="pub" class="dis" href="javascript:;">发布</a>
+</div>
+</body>
+</html>
