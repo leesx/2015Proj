@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>
+        面向对象编程
+    </title>
+    <script>
+        //子元素
+        function Cat(name,color) {
+            this.name = name;
+            this.color =color;
+        }
+
+        //父级
+        function Animal(){
+            this.speice = '动物';
+        }
+
+        Cat.prototype = new Animal();//继承
+        Cat.prototype.constructor = Cat;//重新指向Cat
+
+        Cat.prototype.type = '猫科动物';
+        Cat.prototype.eat = function(){
+            alert('猫会吃老鼠！');
+        };
+
+
+
+
+        //实例化
+        var cat1 =new Cat('大脸猫', '黑色');//不要忘记了加new 实例化
+        var cat2 =new Cat('大花猫', '白色');
+
+
+        alert(cat1.name);
+        alert(cat2.color);
+        alert(cat1.type);
+        cat2.eat();
+        alert(cat1.constructor === Cat);
+        alert(cat1.speice);
+
+
+        //深拷贝
+        function deepCopy(p,c){
+            var c = c || {};
+            for(var i in p){
+                if(typeof p[i] === 'object'){
+                    c[i] = (p[i].constructor === Array) ? [] : {};
+                    deepCopy(p[i],c[i]);
+                } else{
+                    c[i] = p[i];
+                }
+            }
+            return c;
+        }
+
+        //构造函数的继承
+        function Cat(name,color){
+            Animal.apply(this,arguments);
+            this.name = name;
+            this.color = color;
+        }
+
+        //利用空对象作为中介
+         var F = function(){};
+        F.prototype = Animal.prototype;
+        Cat.prototype = new F();
+        Cat.prototype.constructor = Cat;
+
+        //封装继承方法
+        function extend(Child, Parent){
+            var F = function(){};
+            F.prototype = Parent.prototype;
+            Child.prototype = new F();
+            Child.prototype.constructor = Child;
+            Child.uber = Parent.prototype;
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

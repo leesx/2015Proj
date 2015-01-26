@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        (function(){
+            function $(id){
+                return document.getElementById(id);
+            }
+            function alertNodeName(id){
+                alert($(id).nodeName);
+            }
+
+            window['myNamespace'] = {};
+            window['myNamespace']['showNodeName'] = alertNodeName;
+        })()
+
+        myNamespace.showNodeName('example');
+    </script>
+    <script>
+        var html = '<h2 class="a">A list!</h2>'
+            + '<ol>'
+            + '<li class="a">FOO</li>'
+            + '<li class="b">Bar</li>'
+            + '</ol>';
+        var html = '<h2 class="a">A list</h2>' +
+                '<ol>' +
+                '<li></li>' +
+                '<li></li>' +
+                '</ol>';
+        var
+    </script>
+</head>
+<body>
+<div id="example">
+    <ul>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>

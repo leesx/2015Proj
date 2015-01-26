@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+<script>
+    /*jq*/
+
+    var imgDrag = function(a,b){
+        var fazhiX = $(a).width()-$(b).width();
+        var fazhiY = $(a).height()-$(b).height();
+        $(a).mousedown(function(e){
+            var oldX = e.pageX;
+            var oldY = e.pageY;
+            var imgX = $(b).position().left;
+            var imgY = $(b).position().top;
+            $(this).addClass("on");
+            $(document).mousemove(function(e){
+                var x = (e.pageX - oldX)+imgX;
+                var y = (e.pageY - oldY)+imgY;
+                if(x>0){x=0;}
+                if(y>0){y=0;}
+                if(x<fazhiX){x=fazhiX;}
+                if(y<fazhiY){y=fazhiY;}
+                $(b).css({"left":x,"top":y})
+            });
+            e.preventDefault();
+            $(this).mousemove(function(e){
+                if(!window.event){return};
+                window.event.returnValue=false
+            })
+        });
+        $(a).mouseup(function(){
+            $(this).removeClass("on");
+            $(document).unbind("mousemove")
+        });
+        $(a).mouseout(function(){
+            $(this).removeClass("on");
+        })
+        $(document).mouseup(function(){
+            $(document).unbind("mousemove");
+        })
+    }
+</script>
+
+<style>
+    .main{width:500px;height:500px;border:1px solid #CCC;margin:50px auto 0 auto;overflow:hidden;position:relative;cursor:-moz-grab;cursor:url(http://s0.hao123img.com/res/img/logo/logonew1.png),default;}
+    .imgRun{position:absolute;top:0;left:0;}
+    .on{cursor:-moz-grabbing;cursor:url(http://s0.hao123img.com/res/img/logo/logonew1.png),default;}
+</style>
+
+
+<div id="main" class="main">
+    <div id="imgRun" class="imgRun"><img src="img/11.jpg"/></div>
+</div>
+</body>
+</html>
