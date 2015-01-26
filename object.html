@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		ul{ display: table; clear: both; content: '';}
+		ul:after{ content: ''; font-size: 0; line-height: 0;}
+		li{ float: left;list-style: none;}
+	</style>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<script type="text/javascript"> 
+		 
+	/*function init(){ 
+						var book={ 
+									title:"JavaScript高级程序设计", 
+									authors:[ "Nicholas C. Zakas"], 
+									edition:3, 
+									year:2011 
+								}; 
+						var jsonBook=JSON.stringify(book); 
+						var objectBook=JSON.parse(jsonBook); 
+						var title=objectBook.title;
+						console.log(jsonBook);
+						console.log(objectBook);
+						console.log(title)
+					};*/
+	
+		
+		
+
+		$(function(){
+			var result={
+			    "Category": [
+			        {
+			            "categoryId": 1,
+			            "categoryName": "饮品",
+			            "categoryImage": "/upload/yinpin.jpg"
+			        },
+			        {
+			            "categoryId": 2,
+			            "categoryName": "食品",
+			            "categoryImage": "/upload/shiping.jpg"
+			        },
+			        {
+			            "categoryId": 3,
+			            "categoryName": "酒类",
+			            "categoryImage": "/upload/jiullei.jpg"
+			        }
+			    ],
+			    "recommend": {
+			        "id": 11,
+			        "productName": "统一老坛泡椒牛肉袋面香辣味110g*24袋",
+			        "filenameSmall": "/upload/ty_ltpj_small.jpg",
+			        "productPrice": 48.0,
+			        "productCost": 47.5
+			    }
+			};
+			var temp = '';
+			$.each(result,function(i){
+				var catJson = result.Category;
+				
+					$.each(catJson,function(i){
+						console.log(this.categoryId+this.categoryName+this.categoryImage);
+						temp += ('<li><div>'+ (this.categoryImage ? ('<img src = "'+ this.categoryImage +'" >') : '') +'</div><p>'+ this.categoryId +'</p><p>'+ this.categoryName +'</p></li>');
+					});
+			})				
+			
+			$('.box').html(temp);
+			var result = JSON.stringify(result);
+			//var objectResult = JSON.parse(result); 
+			alert(result);
+			//alert(objectResult);
+		})
+	</script> 
+</head>
+<body>
+	<input type="button" onclick="init()" value="测试" /> 
+	<ul class="box"></ul>
+</body>
+</html>

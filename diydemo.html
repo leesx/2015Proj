@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		dialog.alert = function (a) {
+			  return dialog({
+			  			skin: 'min-dialog tips',
+						title: '消息',
+						width:'200px',
+						padding: '20px',
+						content: '<p>'+ a +'</p>',
+						okValue: '确 定',
+						ok: function () {
+					        this.title('提交中…');
+					    }
+					}).showModal()
+		}
+		dialog.alert('这是什么');
+		dialog.tips = function(b){
+			var d = dialog({
+				content: '<p>'+ b +'</p>'
+			}).showModal();
+			return setTimeout(function () {
+			    d.close().remove();
+			}, 500);
+		};
+		dialog.tips('已经成功了！')
+	</script>
+</body>
+</html>

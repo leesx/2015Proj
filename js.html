@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+function get_question_html(id,type){
+	//0, 章节下的测试 1, 试卷 2,个性化练习 3,作业  4,错题本
+    var _str = ['测试','试卷','个性化练习','作业','错题集']
+    xhr && xhr.abort()
+    $("#main").html('<p class="pageloading"><span></span><b>'+ (_str[type]?_str[type]:'') +'正在努力加载中……</b></p>')
+    $('#content').css('background-image', 'url(/site_media/test/images/col2.png)');
+    var url = "";
+    var curUrl = window.location.href;
+    if (curUrl.indexOf('/test/')>-1) {
+        url = '/test/post/get_question/';
+    } else if (curUrl.indexOf('/wrong_title_set/')>-1) {
+        url = '/wrong_title_set/post/get_question/';
+    } else if (curUrl.indexOf('/special_test/')>-1) {
+        url = '/special_test/post/get_question/';
+    }
+	xhr = $.post(url,{"id":id,"type":type},function(d) {
+        $("#main").html(d);
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,$("#main")[0]]);
+        $('#content').css('background-image','url(/site_media/test/images/col2.png)');
+        picLoaded();
+	});
+}
+
+// 提交试题
+function submitObject(o){
+	var question_list = o.question_list;
+	var radio = $('.myanswer .radio');
+	var button = $('.myanswer .btnbox');
+	var maskDialog ;
+    $('.myanswer dd').each(function(n){
+        $(this).attr('ddindex','test'+(n+1))
+    })
+	radio.each(function(){
+        var index = $(this).attr('ddindex');
+		$(this).find('input').click(function(){
+			var id = $(this).parents('dl').attr('askid');//找到小题id
+			var thisObj = searchObj(id);//遍历出小题对象
+			thisObj.user_answer = $(this).val();
+			thisObj.user_result = '0';
+            $("#card a[index='"+index+"']").addClass('bg_green');
+		})
+	});
+	button.each(function(){
+        var index = $(this).parent().attr('ddindex');
+		var _this = this;
+		$(this).find('a').click(function(){
+			//交互
+			if($(this).attr('result') == '1'){
+				$(this).attr('class','righton')
+					.next().attr('class','wrong');
+			}else{
+				$(this).attr('class','wrongon')
+					.prev().attr('class','right');
+			}
+			var id = $(this).parents('dl').attr('askid');//找到小题id
+			var thisObj = searchObj(id);//遍历出小题对象
+			thisObj.user_answer = '';
+			thisObj.user_result = $(this).attr('result');
+            $("#card a[index='"+index+"']").attr('class','bg_green');
+		})
+	});
+	$("#submit").click(function(){
+		var emptyNum = checkEmety(question_list);
+        if (emptyNum == $(".myanswer dd").length) {
+            $.dialog.alert('最少完成一道题目才能提交！');
+            return false;
+        };
+		if (emptyNum) {
+			var confirmPop = $.dialog({
+                content:'您还有'+emptyNum+'道题未答，是否要提交？',
+                button:[{
+                        name:'确定交卷',
+                        callback:function(){submit(o)}
+                    },{
+                        name:'继续做',
+                        focus:true
+                    }],
+                lock:true,
+                width:'400px'
+            })
+		}else{
+			submit(o);
+		}
+	})
+	function submit(o){
+        maskDialog = $.dialog.loading();
+        var id = o.object_id;
+        var type=o.type;
+        o = JSON.stringify(o);
+		$.post('/test/post/sumbit_test/',{'obj':o},function(d){
+			maskDialog.close();
+			d = eval('('+d+')');
+			if (d.response === 'ok') {
+                get_question_html(id,type);
+			}else{
+				$.dialog.alert('提交失败！')
+			}
+		})
+	}
+	function searchObj(ids){//遍历小题对象
+		var askObj;
+		$.each(question_list,function(){
+			var list = this.ask_list;
+			$.each(list,function(){
+				if (this.ask_id == ids) {
+					askObj = this;
+					return false;
+				};
+			})
+		})
+		return askObj;
+	}
+	function checkEmety(o){
+		var n = 0;
+		$.each(o,function(){
+			$.each(this.ask_list,function(){
+				if (!this.user_answer && this.user_result == '0') {n++};
+			})
+		})
+		return n;
+	}
+}
+
+// 答题卡
+function answerCard(o,type){
+    // 有时候，页面总是那么不和谐，这边多个这，那里少个那。
+    // 所以，保险起见，只要出来答题卡（有了试卷，就特么把中间的竖线给干掉！）
+    $('#content').css('background-image','url(/site_media/test/images/col2.png)');
+	var btnCont;
+	if (type=="1") {btnCont = '查看评价'}
+	else if (type=="2") {btnCont = '完成核对'}
+	else if (type=="3") {btnCont = o.score+'分'}
+	var aWidth = parseInt(665/o.column)-1;
+    var cardHeight = o.row*(aWidth+1)+26;
+    var cardWidth = (aWidth+1)*o.column+102;
+    var id = type=="2"?'submit':(type=="1"?'goTestResult':(type=="3"?'score':''))
+    var card = '<div id="card" class="clr" style="height:'+cardHeight+'px;width:'+cardWidth+'px"><i class="arr"></i><a href="'+(type=="1"?'#testResult':'javascript:;')+'" id="'+id+'" style="height:'+cardHeight+'px;line-height:'+cardHeight+'px">'+btnCont+'</a>';
+    $.each(o.list,function(n){
+        var name = o.list.length === 1?'题目导航':numToCn(n+1);
+        var spanWidth = (aWidth+1)*this.column;
+        var span = '<span style="width:'+spanWidth+'px;height:'+cardHeight+'px" '+(n%2?'class="ogg"':'')+'><em>'+name+'</em>';
+        for (var i = 0; i <this.nums.length ; i++) {
+            if (type==3) {
+                span +='<a href="javascript:;" style="width:'+aWidth+'px;height:'+aWidth+'px;line-height:'+aWidth+'px" index="test'+this.nums[i]+'" class="bg_'+(this.user_result[i] == 1?'green':'red')+'">'+this.nums[i]+'</a>'
+            }else if(type==2){
+                span +='<a href="#test'+this.nums[i]+'" style="width:'+aWidth+'px;height:'+aWidth+'px;line-height:'+aWidth+'px" index="test'+this.nums[i]+'"'+(this.user_result[i] == 2?'class="bg_red"':'')+'>'+this.nums[i]+'</a>';
+            }else if(type==1){
+                var key = 'test'+(n+1)+(i+1);
+                span +='<a href="#'+key+'" style="width:'+aWidth+'px;height:'+aWidth+'px;line-height:'+aWidth+'px" index="'+key+'"'+(this.user_result[i] == 2?'class="bg_red"':'')+'>'+this.nums[i]+'</a>';
+            }
+        };
+        span+='</span>';
+        card+=span;
+    });
+    card+='</div>';
+    $('#cardwrap').css({'height':cardHeight+'px','width':cardWidth+'px'}).html(card);
+    var $img = $('.lcont img');
+    var len = $img.length;
+    var complate = 0;
+    if (!len) {picComplate(type);return false;};
+    $img.each(function () {
+            if (this.complete){
+                complate++;
+                complate == len&& picComplate(type);
+            }else{
+                $(this).load(function () {
+                    complate++;
+                    complate == len&& picComplate(type);
+                }).error(function () {
+                    complate++;
+                    complate == len&& picComplate(type);
+                    $(this).attr('alt','图片加载失败');
+                })
+            }
+    })
+    function picComplate (type){
+        switch (type) {
+            case 1:
+                animateCard();
+                $("#goTestResult").click(function(){
+                    $("#testResult").toggle();
+                });
+                break;
+            case 2:
+                animateCard();
+                break;
+            case 3:
+                $('#cardwrap span a').click(function(){
+                    var id = $(this).attr('index');
+                    var target = $('#'+id).parents('.textpub');
+                    $('.textpub').hide();
+                    target.show().find('img').each(function(){
+                        setImg($(this))
+                    })
+                });
+                break;
+        }
+    }
+}
+// 定位答题卡
+function animateCard(){
+    if (!$("#card").length || !$("#cardwrap").length) {return false};
+    var height = $("#cardwrap").height();
+    var winHeight = $(window).height();
+    var top = $("#cardwrap").offset().top-winHeight+height;
+    var left = $("#cardwrap").offset().left;
+    var isIE6 = $.browser.msie && $.browser.version == '6.0';
+    if (winHeight>=$("#cardwrap").offset().top) {return false};
+    if (isIE6) {
+        $("#card").css({'position':'absolute','left':'0','top':-top+$(document).scrollTop()+'px'});
+    }else{
+        $("#card").css({'position':'fixed','left':left+'px','bottom':'0'});
+    }
+    $(window).bind('scroll resize',function(){
+        if (!$("#cardwrap").length) {return false;};
+        if (winHeight>=$("#cardwrap").offset().top) {return false};
+        top = $("#cardwrap").offset().top-winHeight+height;
+        left = $("#cardwrap").offset().left;
+        if ($(document).scrollTop()>=top-height) {
+            $("#card").css({'position':'static'})
+        }else{
+            if (isIE6) {
+                $("#card").css({'position':'absolute','left':'0','top':-top+$(document).scrollTop()+'px'});
+            }else{
+                $("#card").css({'position':'fixed','left':left+'px','bottom':'0'});
+            }
+        }
+    })
+}
+
+// 视频弹窗
+function showVideo(type,id,papertype,title){
+    if (papertype == 2) {
+        var confirmPop = $.dialog({
+            title:'提示',
+            content:'您可在“完成核对”后观看视频，如果您不会做现在可以观看',
+            ok:view,
+            cancel:true,
+            okVal:'我不会做',
+            cancelVal:'完成后再看',
+            lock:true,
+            width:'400px'
+        });
+    }else{
+        view();
+    }
+    function view(){
+        var subject = USER.subject;
+        var videoDialog = $.dialog({
+            title:title,
+            lock:true,
+            content:'<iframe src="/video/dialog_learn/'+subject+'/'+type+'/'+id+'/" frameborder=0 scrolling=no width=650 height=480></iframe>',
+            padding:0,
+            width:'650px'
+        })
+    }
+}
+
+// 图片加载完成后等比缩放
+function picLoaded(){
+    var $img = $('.lcont img');
+    var len = $img.length-1;
+    $img.each(function (n) {
+            if (this.complete){
+                setImg(this);
+            }else{
+                $(this).load(function () {
+                    setImg(this);
+                }).error(function () {
+                    $(this).attr('alt','图片加载失败');
+                })
+            }
+    })
+}
+// 图片等比缩放
+function setImg(img){
+    var maxWidth = $.browser.msie && $.browser.version == 6.0?450:$(img).parent().width();
+    if ($(img).width()>maxWidth) {
+        $(img).width(maxWidth)
+    };
+}
+
+
+// 加入错题方法
+function add_wrong_set(type,object_id,question_id,ele){
+    var that = $(ele);
+    that.disabled({flag:true,img:true})
+    var obj = {"subject_id":USER.subject,
+        "type":type,
+        "object_id":object_id,
+        "question_id":question_id
+    }
+    $.post('/test/post/add_wrong_title_set/',obj,function(d){
+        that.disabled({flag:false,img:false})
+        that.parents('.rcont').hide().next().show();
+        $("#testResult").html(d);
+        var litTitle = that.parents('.rcont').nextAll('.lcont').find('.txtnum');
+        $.each(litTitle,function(){
+            var id = $(this).attr('id');
+            $("#card a[index="+id+"]").addClass('bg_red');
+        })
+        that.parents('.textpub').attr('et','wrong')
+    }).error(function(){
+        loadingDialog.close();
+        $.dialog.alert('加入错题失败！');
+    })
+}
+// 移除错题方法
+function delete_wrong_set(type,object_id,question_id,ele){
+    var that = $(ele);
+    that.disabled({flag:true,img:true})
+    var obj = {"type":type,
+            "object_id":object_id,
+            "question_id":question_id
+        }
+    $.post('/test/post/delete_wrong_title_set/',obj,function(d){
+        that.disabled({flag:false,img:false})
+        that.parents('.rcont').hide().prev().show();
+        $("#testResult").html(d);
+        var litTitle = that.parents('.rcont').nextAll('.lcont').find('.txtnum');
+        $.each(litTitle,function(){
+            var id = $(this).attr('id');
+            $("#card a[index="+id+"]").removeClass('bg_red');
+        })
+        that.parents('.textpub').removeAttr('et')
+    }).error(function(){
+        loadingDialog.close();
+        $.dialog.alert('移出错题失败！')
+    })
+}
+
+
+//下载册子
+function downLoadBook(type,id,book_catalog_id){
+    loadingDialog = $.dialog.loading();
+    var iframe = $('#frmResult');
+    // 设置iframe连接
+    var typename = ['同步测试','个性化练习','','错题汇总']
+    var name = type == 4 ? USER.book_name : $('#leftNav p[objid='+book_catalog_id+']').attr('title');
+    iframe.attr("src", "/test/download_question/?type="+type+"&id="+id);
+    var title = '<div class="pdf_title"><h1 class="logo"></h1><p class="name">' + name + '</p><p class="typename">' + typename[type-1] +'</p><p class="user">使用人：' + USER.name + '</p></div>'
+    // 检测iframe页面加载完毕
+    iframe.load(function(){
+        MathJax.Hub.Queue(
+            function(){iframe.unbind('load');$(window.frames["frmResult"].document.getElementById('main')).before(title)},
+            ["Typeset",MathJax.Hub,window.frames["frmResult"].document.getElementById('main')],
+            getIframeHtml
+        );
+    });
+    function getIframeHtml(){
+        var html = '<!DOCTYPE html><html>'+$(window.frames["frmResult"].document)[0].getElementsByTagName('html')[0].innerHTML+'</html>';
+        // var opend = window.open('about:blak')
+        // opend.document.write(html)
+        createPDF(html);
+    }
+}
+
+// 生成PDF
+function createPDF(html){
+    // 保存html
+    $.post("/test/pdf_html_save/",{"html":html},function(data){
+        loadingDialog.close();
+        if(data == "0"){
+            $.dialog.alert("下载错题集失败！");
+        }else{
+            var pdf_id = data;
+            var downloadPop = $.dialog({
+                lock:true,
+                content:'<p class="ajaxloading"></p><p style="font-size:14px;text-align:center;">正在加载，请不要关闭窗口，耐心等待...</p>',
+                width:'400px',
+                padding:'20px 0 50px'
+            });
+            $.getJSON("http://file.xueceping.com/pdf/create/?pdf_id="+pdf_id+"&callback=?",function(json){
+                if (json.success == true) {
+                    var d = json.data.pdf_file_name;
+                    var isIE = $.browser.msie;
+                    var paperName = isIE?'paper':'同步测评';
+                    var url = 'http://file.tbkt.cn/downfile/?upcheck=&nickname='+paperName+'-'+pdf_id+'.pdf&filename='+d;
+                    url = encodeURI(url);
+                    downloadPop.content('<p style="font-size:14px;margin-bottom:10px;padding-top:30px">加载完毕，请点击下载。</p><p style="text-align:center"><a href="'+url+'" class="self_btn self_btng" target="_blank" id="downSuccess">下载</a></p>')
+                    $('#downSuccess').click(function(){downloadPop.close()});
+                }else{
+                    downloadPop.close();
+                    $.dialog.alert(json.errors)
+                }
+            });
+        }
+    });
+
+}
+// 英语获取单词测试的html
+function get_word_test_html(id){
+    xhr && xhr.abort()
+    $("#main").html('<p class="pageloading"><span></span><b>测试正在努力加载中……</b></p>')
+    $('#content').css('background-image', 'url(/site_media/test/images/col2.png)');
+    xhr = $.post('/test/post/get_word_results/',{"pool_id":id},function(d){
+        $('#main').html(d);
+    })
+}
+
+// 生成个性化练习
+function create_special(id,o){
+    o && $(o).disabled({flag:true,img:true})
+	$.post('/special_test/post/create_special/',{"catalog_id":id},function(d){
+        o && $(o).disabled({flag:false,img:false})
+		if (d.response === 'ok') {
+			if (id>0){
+				left_click_select(id,4);
+			}else{
+				 location.reload();
+			}
+			//left_click_get_data(id,4)
+		}else{
+			if (d.error == "1"){
+				var aa = $.dialog({
+					title:'提示',
+					content:d.message,
+					button:[{
+						name:'现在去完成',
+						callback:function(){
+							location.href=d.next;
+						},
+						focus:true
+					},{
+				 		name:'取消',
+				 		callback:function(){}
+					}],
+					lock:true,
+					width:'400px'
+					
+				});
+			}else if(d.error == "2"){
+				var aa = $.dialog({
+					title:'提示',
+					content:d.message,
+					button:[{
+						name:'进行同步测评 ',
+						callback:function(){
+							location.href=d.next;
+						},
+						focus:true
+					},{
+				 		name:'取消',
+				 		callback:function(){}
+					}],
+					lock:true,
+					width:'400px'
+					
+				});
+			}
+			else{
+				$.dialog.alert(d.error);
+			}
+		}
+    },'json')
+}
+
+// 视频播放弹窗
+function popWatch(obj,type){
+    obj.click(function(){
+        var _this = this;
+        var id = $(_this).attr('data-id');
+        type = type || "1";
+        var videoDialog = $.dialog({
+            title:$(_this).attr('title'),
+            content:'<iframe src="/video/dialog_learn/'+USER.subject+'/'+type+'/'+id+'/" width=650 height=480 frameborder=0 scrolling=no></iframe>',
+            lock:true,
+            padding:0,
+            width:'650px'
+        })
+    })
+}
+	</script>
+</body>
+</html>
