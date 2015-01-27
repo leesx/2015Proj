@@ -11,11 +11,16 @@
 	seajs.config({
 		base : 'js',//设置基路径，此路径是相对sea.js文件的路径
 		alias : {//这些简写路径现在是相对于base设置的，所以要返回上一层
-			"jquery" : 'jquery',
-			"jqueryMobile" : 'jquery.mobile-1.4.3'
-		}
+			"jquery" : 'jquery'
+		},
+        preload: ['jquery'],//预先加载
+        map: [[/^(.*\.(?:css|js))(.*)$/i, '$1?v=201512300']],  //map,批量更新时间戳
+        charset: 'utf-8' // 文件编码
 	});
-	seajs.use('./js/main');//use的文件路径也是相对于base
+	seajs.use(['./js/main','./js/doSomething'],function(main,doSomething){
+        doSomething.alertW();
+    });//use的文件路径也是相对于base
+
 </script>
 </head>
 
