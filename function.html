@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<script>
+			$(function(){
+				var obj2= {};
+				var arr = [];
+				
+
+				for(var i = 0; i<3;i++){
+					var obj = {};
+					obj.id = i,
+					obj.name = '利山西'+i
+					
+					arr.push(obj);
+				}
+				obj2.lists = arr;
+				console.log(obj2);
+				console.log(arr)
+
+			})
+	</script>
+</head>
+<body>
+	<button id="btn" aid="这是一个阿牛">按钮</button>
+	<button id="btn2">按钮2</button>
+</body>
+</html>
