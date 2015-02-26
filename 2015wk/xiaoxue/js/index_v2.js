@@ -32,14 +32,13 @@ $(document).ready(function(){
         onImageStop:false,
         switchEffect:'ease',
         switchEase: 'easeOutBounce',
-        buttonPosition:'leftTop',
         switchPath: 'up',
         switchMode: 'hover',
         textSwitch:2,
         textPosition: 'bottom',
         textAlign:'center'
     });
-
+    $('.smallslider-btns').css({'left':10,'top':10});
 
 
 });

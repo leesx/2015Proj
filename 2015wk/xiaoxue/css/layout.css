@@ -12,8 +12,8 @@
 .smallslider  h3 a:hover{text-decoration:underline;color:#FF6600;}
 .smallslider li.current-li{}
 .smallslider-btns{position:absolute;z-index:103;}
-.smallslider-btns span{background-color:#FFFFFF;color:#9F9F9F;cursor:pointer;float:left;font-size:12px;height:16px;line-height:16px;text-align:center; width:16px;}
-.smallslider-btns span.current-btn{ background-color:#000;  color:white; font-size:13px; opacity: 0.5; filter:alpha(opacity = 50);}
+.smallslider-btns span{background-color:#000;color:#fff;cursor:pointer;float:left;font-size:12px;height:16px;line-height:16px;text-align:center;opacity: 0.5; filter:alpha(opacity = 50); width:16px;}
+.smallslider-btns span.current-btn{ background-color:#fff;  color:#000; font-size:13px; }
 .smallslider-lay{position:absolute;background:black;height:26px;width:100%; z-index:101;}
 #debug{width:200px;height:200px;border:1px solid;background:#CCC;position:fixed;left:10px;bottom:20px; }
 
@@ -58,7 +58,7 @@
 .sub-banner li{ margin-bottom: 10px;}
 .banner{ margin-bottom: 15px;}
 .news-tab2 .pic-list li{ float: left; width: 145px; margin-right: 8px; padding: 0; background: none;}
-.news-tab2 .pic-tab-bd{ padding-right: 0;}
+.news-tab2 .pic-tab-bd{ padding: 12px 0 0 8px; background-repeat: repeat-x;}
 .pic-box{ width: 780px;}
 .pic-list li img{ width:141px; height: 111px; border:2px solid #fff; border-radius: 5px;}
 .pic-list h4{ text-align: center;}

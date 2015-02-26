@@ -152,7 +152,7 @@ h1,h2,h3,h4{ font-weight: 400;}
 /*头部*/
 .header{ position: relative; height: 189px; background: url("../images/header_bg.png") 0 0 no-repeat scroll;}
 .header .logo{ position: absolute; top:52px; left:288px;}
-.nav{ height: 40px; line-height: 35px;  padding-left: 28px; background: url("../images/nav_bg.png") center 0  no-repeat scroll}
+.nav{ height: 40px; line-height: 35px;  padding-left: 28px; background: url("../images/nav_bg.png") 0 0  no-repeat scroll}
 .nav li{ float: left; width: 85px; text-align: center; font-size: 14px;}
 .nav li a{ display: block; color:  #fff;}
 .nav li a:hover, .nav .cur a{ background: url("../images/nav_hover.png") center 0  no-repeat scroll; color: #4a7e00; text-decoration: none;}

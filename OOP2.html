@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+	<script type="text/javascript">
+		
+			$(function(){
+				function Persorn(local){
+				this.id = '1',
+				this.name = '李山西'+local,
+				this.age = '3',
+				this.say = function(){
+					alert(this.name + '你好')
+				}
+			}
+			var p1 = new Persorn('河南');
+			console.log(p1.name)
+			//p1.say()
+			Persorn.prototype.hello = '2015年你好啊'
+			console.log(p1.hello)
+
+			var p2 = new Persorn();
+			console.log(p2.hello+'这是第二个人');
+
+			Persorn.prototype.run = function(){
+				console.log(this)
+				alert(this.name+'我会长跑啊')
+			}
+			Persorn.prototype.sayyour = '早上好';
+			console.log(p1.sayyour)
+
+			$('#btn1').click(function(){
+				console.log(p1.name)
+				p1.say()
+				p2.run()
+			})
+
+			function Hero(name){
+				this.name = name + '你好',
+				this.sayName = function(){
+					return this.name;
+				}
+				
+			}
+			var h1 = new Hero('利山西');
+			console.log(h1.constructor.prototype)
+			console.log(h1.sayName())
+
+			var o ={};
+			console.log(o.constructor)
+			console.log(typeof o.constructor)
+
+			function Hero2(){}
+			var h2 = new Hero2();
+			console.log(h2 instanceof Hero2)
+			console.log(h2 instanceof Object)
+			console.log(Hero2 instanceof Object)
+		})
+	</script>
+</head>
+<body>
+	<button id="btn1">按下我</button>
+	<p style="font-size:40px; text-align:center;">这里是一段内容</p>
+</body>
+</html>
