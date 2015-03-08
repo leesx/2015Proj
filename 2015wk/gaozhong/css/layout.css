@@ -1,0 +1,74 @@
+@charset "utf-8";
+/****************************首页*********************************/
+.focus-pic{ width: 262px; height: 233px; background: #fffefb; border:1px solid #ccc;}
+.yx-rotaion {
+    margin: 0 auto;
+}
+.yx-rotaion-btn, .yx-rotaion-title, .yx-rotation-focus, .yx-rotation-t, .yx-rotaion-btn {
+    position: absolute;
+}
+.yx-rotation-t{
+    padding-left: 20px;
+    bottom:-25px;
+}
+.yx-rotation-focus {
+    bottom:3px;
+    right:3px;
+}
+.yx-rotation-focus span {
+    float: left;
+    display: block;
+    width: 15px;
+    height: 13px;
+    line-height: 13px;
+    background:url("../images/focus_btn.png") 0 0 repeat;
+    cursor: pointer;
+    margin-left:4px;
+    text-align: center;
+    color:#2d2d2d;
+}
+.yx-rotation-focus .hover{ background-color:#fff;}
+.rotaion_list {
+    height: 0;
+    overflow: hidden;
+    width: 0;
+}
+
+.section1{ position: relative;z-index: 1;}
+.section1 .bar{ position: absolute; left: 238px;top:1px; width: 75px; height: 294px;
+    background: url("../images/newsbox_bar.png") 0 0 no-repeat scroll; z-index: 100;}
+.notice{ height: 264px; padding-right: 35px;}
+.notice .more2,.school-intro .more2{color: #b02a01; font-family: 'microsoft Yahei';}
+.notice .more2{margin: 10px 20px 0 0;}
+.notice-list li{ height: 50px; border-bottom: 1px dashed #dadada; }
+.notice-list li p{ line-height: 25px;white-space: nowrap; overflow: hidden;}
+
+.school-news{ position: relative;height: 264px; padding-left: 43px;}
+.school-news .news-list{ width: 385px; padding-right: 6px;}
+
+.school-intro{ height: 375px; overflow: hidden;}
+.school-intro .intro{ margin-top: 5px; line-height: 20px; text-indent: 30px;}
+.fourbox{width: 728px; height: 390px; padding-bottom: 0; overflow: hidden;}
+.fourbox .mod-inner{ float: left; width: 338px; margin:0 25px 15px 0;}
+.fourbox .news-list .name{ float: right; margin-right: 28px;}
+
+.slide-box{ position: relative; overflow: hidden;}
+.pic-list li{ float: left; width: 184px; margin-right:6px; text-align: center;}
+.pic-list img{ width: 180px; height: 138px; padding: 1px; border:1px solid #ccc;}
+.pic-list h4{ height: 22px; line-height: 22px; margin-top: 5px; }
+.pic-list h4 a{ display: block; color: #000;background: #ccc;}
+.pic-list h4 a:hover{ background: #b02a01; color: #fff;}
+
+.tearcher-zone .news-list{ float: left; width: 333px;}
+.tearcher-zone .news-list li{ padding-left: 20px; background: url("../images/icon3.png") 0 12px no-repeat scroll;}
+.tearcher-zone .news-list .name{ float: right; margin-right: 20px;}
+.tearcher-zone .news-list-r{ border-left: 1px solid #eee; margin-left: 15px; padding-left: 15px;}
+
+.student-zone{ padding-bottom: 0; overflow: hidden;}
+.student-list{ width: 500px;}
+.student-list li{ float: left; width: 139px; margin:0  17px 17px 0; text-align: center;}
+.student-list li img{ width: 135px; height: 104px; padding: 1px; border:1px solid #ccc;}
+
+.links-box{padding:15px 0 15px 15px; margin-top: 20px;color: #000; border:1px solid #b02a01; font-size: 14px; font-family: 'microsoft yahei';}
+.links-box a{ display: inline-block; white-space: nowrap; color: #000; margin-right: 15px;}
+.links-box a:hover{color: #b02a01;}
