@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>Angular.js</title>
+	<script src="js/angular.min.js"></script>
+    <script>
+        function app1($scope,$rootScope){
+            $scope.name = 'lishangxi'; /*M 数据模型 */
+            $scope.sex = '男';
+            $rootScope.address = '河南'
+        }
+        function app2($scope){
+            $scope.book = ['倚天屠龙记','神雕侠侣','天龙八部'];
+        }
+        function app3($scope,$http){
+            $http({
+                method:'GET',
+                url:'http://baidu.com',
+                params:{'name':'lishangxi'}
+            }).success(function(data){
+                return data;
+            })
+        }
+        function app4($scope){
+            $scope.name = '利山西';
+            $scope.book = '平凡的世界'
+        }
+
+        //模块化
+        var mod = angular.module('myApp',[]);//myApp  对应着<html ng-app = 'myApp'>
+        mod.controller('app5',['$scope','$rootScope',function($s,$rs){
+            $s.name = '我的女友的名字';
+            $s.hello = '你好的'
+        }]);
+
+        mod.controller('app6',['$scope','$rootScope',function($scope,$rootScope){
+            $scope.count = 0;
+            $scope.$on('myEvent',function(){
+                $scope.count++;
+                if($scope.count > 10){
+                    $scope.count = 10;
+                }
+            })
+        }])
+
+    </script>
+</head>
+<body>
+	<div ng-controller="app1"><!--C 控制器 -->
+        {{name}}/性别：{{sex}} <!--V 视图-->
+    </div>
+    <ul ng-controller="app2">
+        <li ng-repeat="data in book" ng-click="data=$index">{{data}}</li>
+    </ul>
+   <div>{{address}}</div>
+    <div ng-controller="app3">{{name}}</div>
+    <div ng-controller="app4">
+        <input type="text" ng-model="name">
+        <p>{{name}}</p>
+        <input type="text" ng-model="book">
+        <p>{{book}}</p>
+    </div>
+    <div ng-controller="app5">{{name}} {{hello}}</div>
+    <div ng-controller="app6" ng-click="$emit('myEvent')">{{count}}</div>
+</body>
+</html>

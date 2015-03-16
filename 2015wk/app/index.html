@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>物流</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<link rel="stylesheet" href="css/layout.css">
+<script src="js/zepto.js"></script>
+<script>
+    //侧边栏
+    $(function(){
+        $('.menu-icon').on('click',function(){
+            $('#mask').show().css({'opacity':'0.5'});
+            $('#sidebar').css({'left':0});
+
+            return false;
+        });
+        $('#mask').on('click',function(){
+            $('#mask').css({'opacity':0}).hide();
+            $('#sidebar').css({'left':-200});
+
+            return false;
+        });
+
+    })
+</script>
+</head>
+<body>
+<div class="wrap">
+    <div class="topbar">
+        <a class="menu-icon" href="javascript:"></a>
+        <h2>收货短信验证</h2>
+    </div>
+    <div class="main">
+        <div class="msg-form">
+            <input class="text" type="text" placeholder="请输入短信验证码">
+            <a href="javascript:" class="send-btn">重新发送(59)</a>
+        </div>
+        <div class="btn-box">
+            <button class="btn">提 交</button>
+        </div>
+    </div>
+    <!--遮罩和侧边栏-->
+    <div id="mask"></div>
+    <div id="sidebar">
+        <div class="user-photo">
+            <div class="photo">
+                <a href=""><img src="images/photo.png"> </a>
+            </div>
+            <span class="name">张三</span>
+        </div>
+        <ul>
+            <li><a href="">在线找货<i class="arrow-r"></i></a></li>
+            <li><a href="">我的订单<i class="arrow-r"></i></a></li>
+            <li><a href="">我的积分<i class="arrow-r"></i></a></li>
+            <li><a href="">通知中心<i class="arrow-r"></i></a></li>
+            <li><a href="">我的钱包<i class="arrow-r"></i></a></li>
+            <li><a href="">关于我们<i class="arrow-r"></i></a></li>
+            <li><a href="">设置<i class="arrow-r"></i></a></li>
+        </ul>
+    </div>
+
+</div>
+</body>
+</html>
