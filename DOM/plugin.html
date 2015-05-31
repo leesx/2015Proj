@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+    <script>
+        ;(function($){
+            $.fn.myPlugin = function(options){
+                var defaults = {
+                    'color' : '#f00',
+                    'fontSize' : '12px',
+                    'border' : '2px solid #f00'
+                };
+                var settings = $.extend({},defaults,options);
+                console.log(this);
+                return this.each(function(){
+                    console.log(this);
+                    $(this).css({'color':settings.color,'fontSize':settings.fontSize,'border':settings.border})
+                            .wrapAll('<div>');
+                });
+
+            }
+        })(jQuery);
+        $(function(){
+            $('.box').myPlugin({
+                'color' : '#f60',
+                'fontSize' : '60px'
+            }).height('200px');
+        });
+        (function($){
+            $.fn.myPlugin2 = function(options){
+                var defaults = {};
+                var settings = $.extend({},defaults,options);
+                 return this.each(function(){
+
+                 });
+            };
+        })(jQuery);
+    </script>
+</head>
+<body>
+<div class="box">
+    8888888888888
+</div>
+</body>
+</html>

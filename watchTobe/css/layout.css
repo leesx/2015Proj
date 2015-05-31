@@ -1,0 +1,172 @@
+@charset "UTF-8";
+/****************************首页*********************************/
+.container {
+  padding-top: 20px; }
+
+/*焦点图*/
+.focus-box {
+  width: 690px;
+  height: 400px;
+  overflow: hidden; }
+
+.ad-box {
+  width: 285px;
+  height: 400px;
+  text-align: center;
+  background: #fff; }
+
+.brand-box {
+  margin: 20px 0; }
+  .brand-box .hd {
+    margin-bottom: 10px; }
+  .brand-box .title {
+    background: url("../images/hot_tit.png") 0 0 no-repeat scroll;
+    text-indent: -9999px; }
+
+.brand-left {
+  width: 300px;
+  overflow: hidden; }
+
+.brand-center {
+  width: 380px;
+  margin-left: 10px; }
+  .brand-center ul {
+    width: 400px; }
+  .brand-center li {
+    position: relative;
+    float: left;
+    width: 126px;
+    height: 74px;
+    margin: -1px;
+    border: 1px solid #eee;
+    background: #fff;
+    z-index: 1; }
+    .brand-center li:hover {
+      border: 1px solid  #fb664a;
+      z-index: 10; }
+    .brand-center li img {
+      width: 126px;
+      height: 74px; }
+
+.brand-right {
+  width: 300px;
+  background: #fff;
+  overflow: hidden; }
+
+/*新闻资讯*/
+.section03 {
+  background: #fff; }
+
+.news-box .item {
+  position: relative;
+  height: 145px;
+  padding: 15px;
+  margin-top: -1px;
+  border: 1px solid #eee;
+  z-index: 1;
+  transition: all .3s; }
+  .news-box .item:hover {
+    border: 1px solid #c3c3c3;
+    z-index: 10; }
+.news-box .news-pic {
+  width: 200px;
+  height: 145px;
+  overflow: hidden; }
+  .news-box .news-pic img {
+    transition: all .3s ease-in; }
+    .news-box .news-pic img:hover {
+      transform: scale(1.1); }
+.news-box .desc {
+  position: relative;
+  height: 145px;
+  overflow: hidden;
+  margin-left: 240px; }
+  .news-box .desc h4 {
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 700; }
+  .news-box .desc p {
+    color: #ccc; }
+  .news-box .desc .ft {
+    position: absolute;
+    bottom: 0; }
+    .news-box .desc .ft li {
+      float: left;
+      margin-left: 20px;
+      height: 22px;
+      line-height: 22px; }
+      .news-box .desc .ft li span {
+        position: relative;
+        top: -5px;
+        padding-left: 10px; }
+
+.side-box {
+  padding: 15px 10px 0 0; }
+
+.mod-box .hd h3 {
+  margin-bottom: 15px;
+  font-size: 14px; }
+
+.maybe-like {
+  margin-bottom: 20px; }
+  .maybe-like .item {
+    height: 80px;
+    margin-bottom: 10px; }
+    .maybe-like .item img {
+      float: left; }
+    .maybe-like .item .desc {
+      margin-left: 90px;
+      overflow: hidden; }
+
+.smart-life .item {
+  height: 28px;
+  line-height: 28px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; }
+  .smart-life .item span {
+    display: block;
+    float: left;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin: 5px 10px 0 0;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    background: #555; }
+.smart-life .hot span {
+  background: #f5575a; }
+
+.smart-sports {
+  margin-top: 20px;
+  padding: 8px;
+  background: #fafafa;
+  overflow: hidden; }
+  .smart-sports h3 {
+    height: 30px;
+    padding: 10px;
+    text-align: center;
+    font-size: 22px;
+    color: #ff288c; }
+  .smart-sports ul {
+    width: 1100px; }
+  .smart-sports li {
+    position: relative;
+    float: left;
+    margin-right: 10px; }
+    .smart-sports li:hover .text {
+      opacity: 0.5; }
+  .smart-sports .text {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 238px;
+    height: 220px;
+    line-height: 220px;
+    font-size: 24px;
+    text-align: center;
+    background: #fff;
+    opacity: 0;
+    transition: all 0.5s ease-in; }

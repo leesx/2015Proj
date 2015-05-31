@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function removeAll(n){
+            while(n.firstChild){
+                if(n.firstChild.hasAttributes){
+                    var arr = n.firstChild.attributes;
+                    for(var i = 0; i< arr.length;i++){
+                        if(typeof  arr[i].nodeValue === 'function'){
+                            console.log(arr[i]);
+                            arr[i].nodeValue = null;
+                        }
+                    }
+                }
+                n.removeChild(n.firstChild);
+            }
+        }
+
+        var DOM = DOM || {};
+        DOM.addEvent = function(n,type,fn){
+            if(typeof  n.addEventListener === 'function'){
+                return n.addEventListener(type,fn,false);
+            }else if(typeof n.attachEvent === 'function'){
+                return n.attachEvent('on'+type,fn)
+            }
+        };
+        DOM.removeEvent = function(n,type,fn){
+            if(typeof n.removeEventListener === 'function'){
+                return n.removeEventListener(type,false);
+            }else if(typeof n.detachEvent === 'function'){
+                return n.detachEvent('on'+type)
+            }
+        };
+
+        window.onload = function(){
+            var oUl = document.getElementsByTagName('ul')[0];
+            var oLi = oUl.getElementsByTagName('li')[0];
+            console.log(oLi.attributes[0].nodeValue);
+            console.log(oLi.nextSibling);
+            //removeAll(oLi);
+
+            /*oUl.addEventListener('click',function(e){
+                console.log(e.target.index);
+                console.log(this.index);
+
+                e.preventDefault()
+            });*/
+
+            DOM.addEvent(oUl,'click',function(e){
+                console.log(e.target.innerHTML);
+                //console.log(this.innerHTML);
+
+                e.preventDefault()
+            });
+
+
+            var el = document.createElement('div');
+            el.id = 'myDiv';
+            el.style.cssText = 'position:relative;left:100px;top:100px;width:100px;height:100px;border:2px solid #f00;background:#000;';
+            document.body.appendChild(el);
+            var myDiv  = document.getElementById('myDiv');
+            DOM.addEvent(document,'keyDown',function(e){
+                console.log(e.keyCode);
+                console.log(myDiv);
+                switch (e.keyCode){
+                    case 37 :
+                        myDiv.style.left = myDiv.offsetLeft-10 +'px';
+                        break;
+                    case 38 :
+                        myDiv.style.top = myDiv.offsetTop-10 +'px';
+                        break;
+                    case 39 :
+                        myDiv.style.left =myDiv.offsetLeft + 10 +'px';
+                        break;
+                    case 40 :
+                        myDiv.style.top =myDiv.offsetTop + 10 +'px';
+                        break;
+                    default : myDiv.style.left += 10 +'px';
+                        break;
+                }
+                e.preventDefault();
+            });
+
+            Array.prototype.uquee = function(){
+                var obj = {};
+                var res = [];
+                for(var i =0; i< this.length;i++){
+                    if(!obj[this[i]]){//将数组的值设置为对象的属性，并设置对象每个属性值设置为1
+                        res.push(this[i]);
+                        obj[this[i]] = 1;
+                    }
+                }
+                console.log(obj);
+                return res;
+
+            };
+
+            String.prototype.reverse = function(){
+                return Array.prototype.reverse.apply(this.split('')).join('');
+            };
+
+            var arr = ['我爱你','我爱你','8',8,66];
+            console.log(arr.uquee());
+
+            var str = 'I love you 2015';
+
+
+            console.log(str.reverse());
+        }
+    </script>
+</head>
+<body>
+<ul>
+
+    <li class="first" ><a href="" onclick="alert('点我了')">点击我吧</a></li>
+    <li><a href="">点击我吧</a></li>
+    <li><a href="">点击我了1</a></li>
+    <li><a href="">点击我了2</a></li>
+    <li><a href="">点击我了3</a></li>
+    <li><a href="">点击我了4</a></li>
+    <li><a href="">点击我了5</a></li>
+    <li><a href="">点击我了6</a></li>
+    <li><a href="">点击我了7</a></li>
+    <li><a href="">点击我了8</a></li>
+    <li><a href="">点击我了9</a></li>
+    <li><a href="">点击我了10</a></li>
+    <li><a href="">点击我了11</a></li>
+    <li><a href="">点击我了12</a></li>
+    <li><a href="">点击我了13</a></li>
+    <li><a href="">点击我了14</a></li>
+    <li><a href="">点击我了15</a></li>
+    <li><a href="">点击我了16</a></li>
+    <li><a href="">点击我了17</a></li>
+    <li><a href="">点击我了18</a></li>
+    <li><a href="">点击我了19</a></li>
+    <li><a href="">点击我了20</a></li>
+    <li><a href="">点击我了21</a></li>
+    <li><a href="">点击我了22</a></li>
+    <li><a href="">点击我了23</a></li>
+    <li><a href="">点击我了24</a></li>
+    <li><a href="">点击我了25</a></li>
+    <li><a href="">点击我了26</a></li>
+    <li><a href="">点击我了27</a></li>
+    <li><a href="">点击我了28</a></li>
+    <li><a href="">点击我了29</a></li>
+    <li><a href="">点击我了30</a></li>
+    <li><a href="">点击我了31</a></li>
+    <li><a href="">点击我了32</a></li>
+    <li><a href="">点击我了33</a></li>
+    <li><a href="">点击我了34</a></li>
+    <li><a href="">点击我了35</a></li>
+    <li><a href="">点击我了36</a></li>
+    <li><a href="">点击我了37</a></li>
+    <li><a href="">点击我了38</a></li>
+    <li><a href="">点击我了39</a></li>
+    <li><a href="">点击我了40</a></li>
+    <li><a href="">点击我了41</a></li>
+    <li><a href="">点击我了42</a></li>
+    <li><a href="">点击我了43</a></li>
+    <li><a href="">点击我了44</a></li>
+    <li><a href="">点击我了45</a></li>
+    <li><a href="">点击我了46</a></li>
+    <li><a href="">点击我了47</a></li>
+    <li><a href="">点击我了48</a></li>
+    <li><a href="">点击我了49</a></li>
+    <li><a href="">点击我了50</a></li>
+    <li><a href="">点击我了51</a></li>
+    <li><a href="">点击我了52</a></li>
+    <li><a href="">点击我了53</a></li>
+    <li><a href="">点击我了54</a></li>
+    <li><a href="">点击我了55</a></li>
+    <li><a href="">点击我了56</a></li>
+    <li><a href="">点击我了57</a></li>
+    <li><a href="">点击我了58</a></li>
+    <li><a href="">点击我了59</a></li>
+    <li><a href="">点击我了60</a></li>
+    <li><a href="">点击我了61</a></li>
+    <li><a href="">点击我了62</a></li>
+    <li><a href="">点击我了63</a></li>
+    <li><a href="">点击我了64</a></li>
+    <li><a href="">点击我了65</a></li>
+    <li><a href="">点击我了66</a></li>
+    <li><a href="">点击我了67</a></li>
+    <li><a href="">点击我了68</a></li>
+    <li><a href="">点击我了69</a></li>
+    <li><a href="">点击我了70</a></li>
+    <li><a href="">点击我了71</a></li>
+    <li><a href="">点击我了72</a></li>
+    <li><a href="">点击我了73</a></li>
+    <li><a href="">点击我了74</a></li>
+    <li><a href="">点击我了75</a></li>
+    <li><a href="">点击我了76</a></li>
+    <li><a href="">点击我了77</a></li>
+    <li><a href="">点击我了78</a></li>
+    <li><a href="">点击我了79</a></li>
+    <li><a href="">点击我了80</a></li>
+    <li><a href="">点击我了81</a></li>
+    <li><a href="">点击我了82</a></li>
+    <li><a href="">点击我了83</a></li>
+    <li><a href="">点击我了84</a></li>
+    <li><a href="">点击我了85</a></li>
+    <li><a href="">点击我了86</a></li>
+    <li><a href="">点击我了87</a></li>
+    <li><a href="">点击我了88</a></li>
+    <li><a href="">点击我了89</a></li>
+    <li><a href="">点击我了90</a></li>
+    <li><a href="">点击我了91</a></li>
+    <li><a href="">点击我了92</a></li>
+    <li><a href="">点击我了93</a></li>
+    <li><a href="">点击我了94</a></li>
+    <li><a href="">点击我了95</a></li>
+    <li><a href="">点击我了96</a></li>
+    <li><a href="">点击我了97</a></li>
+    <li><a href="">点击我了98</a></li>
+    <li><a href="">点击我了99</a></li>
+    <li><a href="">点击我了100</a></li>
+    
+</ul>
+</body>
+</html>

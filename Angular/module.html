@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular.js</title>
+    <script src="js/angular.min.js"></script>
+    <script>
+        var mod1 = angular.module('myApp',[]);
+        mod1.controller('fn1',['$scope','$rootScope',function($s,$rs){
+            $s.name = '陈攀登';
+            $s.sex = '女';
+            $s.say2 = ['I love you' ,'wo ai  ni'];
+        }]);
+        mod1.controller('fn2',['$scope','$rootScope',function($s,$rs){
+            $s.name = '李尚喜';
+            $s.sex = '男';
+            $rs.say = '我爱你';
+            $s.money = '88888855544200';
+            $s.list = ['我','爱','你','陈攀登'];
+        }]);
+        mod1.controller('myFridedGril',['$scope','$rootScope',function($s,$rs){
+            $s.name = 'hello';
+        }]);
+        //自定义过滤器
+        mod1.filter('filterUperName',function(){
+            return function(str){
+                return str.charAt(0).toUpperCase() + str.substring(1);
+            };
+        });
+    </script>
+</head>
+<body>
+<div class="" ng-controller="fn1">
+    {{ name }}  <br/>
+    {{ sex }} <br/>
+    {{ say }} <br/>
+    {{ say2[0] | filterUperName }}
+    {{ say2 | filter:'n' }}
+    <div ng-controller="myFridedGril">
+        <p> <input type="text" ng-model="name" > </p>
+        <p ng-model="name"> {{ name }} </p>
+    </div>
+
+</div>
+<div ng-controller="fn2">
+    {{ name }} <br/>
+    {{ sex }} <br/>
+    {{ money | currency:'人民币' }}
+    <ul>
+        <li ng-repeat="data in list">
+            {{ data }}
+        </li>
+    </ul>
+
+</div>
+</body>
+</html>

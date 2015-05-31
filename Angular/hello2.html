@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" ng-app>
+<head>
+	<meta charset="UTF-8">
+	<title>Angular.js</title>
+	<script src="js/angular.min.js"></script>
+    <script>
+        function InvoiceCntl($scope){
+            $scope.qty = 1;
+            $scope.cost = 19.95;
+        }
+
+        function MyCtrl($scope){
+            $scope.action = function(){
+                $scope.name = 'ok';
+            }
+            $scope.name = 'World';
+        }
+
+    </script>
+</head>
+<body>
+    <div ng-init="list = ['谷歌','IE','BAIDU','QQ','ALI']">
+        <input ng-model="list" ng-list><br/>
+        <input ng-model="list" ng-list><br/>
+        <pre>
+            list = {{list}}
+        </pre>
+        <ol>
+            <li ng-repeat="item in list">
+                {{item}}
+            </li>
+        </ol>
+    </div>
+    <div ng-init="list = ['谷歌','IE','BAIDU','QQ','ALI']">
+        数字格式：{{1234567890 | number}}
+        <pre>
+            list = {{list}}
+        </pre>
+        <ol>
+            <li ng-repeat="item in list">
+                {{item}}
+            </li>
+        </ol>
+    </div>
+    <div ng-controller="MyCtrl">
+        Hello{{name}}
+        <button ng-click="action()">ok</button>
+    </div>
+	<div ng-controller="InvoiceCntl">
+        <b> Invoice:</b>   
+        <table>
+            <tr>
+                <td>单价</td>
+                <td>数量</td>
+            </tr>
+            <tr>
+                <td><input type="integer" min="0" ng-model="qty" required></td>
+                <td><input type="number" ng-model="cost" required></td>
+            </tr>
+        </table>
+        <p>总价：{{qty*cost | currency}}</p>
+    </div>
+</body>
+</html>
+
+

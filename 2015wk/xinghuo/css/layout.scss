@@ -1,0 +1,328 @@
+@charset "utf-8";
+/****************************首页*********************************/
+.section1{
+  width: 100%;
+  background: url("../images/banner_bg.png") 0 0 repeat scroll;
+}
+
+.slider-box{
+  width: 980px;
+  height: 350px;
+  overflow: hidden;
+  z-index: 10;
+}
+#full-screen-slider { width:100%; height:350px;position:relative}
+#slides { display:block; width:100%; height:350px; list-style:none; padding:0; margin:0; position:relative}
+#slides li { display:block; width:100%; height:100%; list-style:none; padding:0; margin:0; position:absolute}
+#slides li a { display:block; width:100%; height:100%; text-indent:-9999px}
+#pagination { display:none; list-style:none; position:absolute; left:50%; top:340px; z-index:9900;  padding:5px 15px 5px 0; margin:0}
+#pagination li { display:block; list-style:none; width:10px; height:10px; float:left; margin-left:15px; border-radius:5px; background:#FFF }
+#pagination li a { display:block; width:100%; height:100%; padding:0; margin:0;  text-indent:-9999px;}
+#pagination li.current { background:#0092CE}
+.banner-box{
+  position: relative;
+  height: 350px;
+}
+.login-box{
+  position: absolute;
+  top:0;
+  right: 0;
+  width: 340px;
+  height: 350px;
+  background: url("../images/opacity50.png") 0 0 repeat scroll;
+  text-align: center;
+  color: #fff;
+  z-index: 1000;
+  h3{
+    margin-top: 57px;
+    font-size: 24px;
+  }
+  .intro{
+    margin:32px 0;
+    font-size: 16px;
+    line-height: 30px;
+  }
+}
+
+.section2{
+  background: #253b3b;
+
+}
+.mod-box{
+  .hd{
+
+    h4{
+      font-size: 14px;
+      color: #fff;
+    }
+  }
+}
+.sct1-left{
+  width: 640px;
+  height: 350px;
+  overflow: hidden;
+  ul{
+    width: 680px;
+  }
+  .tit{
+    padding-top:12px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #fff;
+  }
+  .item{
+    float: left;
+    width: 260px;
+    height: 112px;
+    padding:15px 30px 0 20px;
+    margin:0 18px 53px 0;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    overflow: hidden;
+    opacity: 0.9;
+    filter:alpha(opacity=90);
+    color: #fff;
+    transition:all 0.5s ease-in;
+    &:hover{
+      opacity: 1;
+      filter:alpha(opacity=100);
+      img{
+
+        transform:translateY(-10px);
+      }
+    }
+    a{
+      color: #fff;
+
+    }
+    img{
+      float: left;
+      transition:all 0.5s ease-in;
+    }
+    .intro{
+      margin-left: 100px;
+      overflow: hidden;
+      h4{
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .item1{
+    background: #178bc6;
+    img{
+      margin-top:10px;
+    }
+  }
+  .item2{
+    background: #a455ac;
+  }
+  .item3{
+    background: #17c535;
+    img{
+      margin-top:10px;
+    }
+  }
+  .item4{
+    background: #d95e1b;
+    img{
+      margin-top:20px;
+    }
+  }
+}
+.sct1-right{
+  width: 310px;
+  height: 350px;
+  overflow: hidden;
+  .item1{
+    background: #ffac07;
+    margin-bottom: 25px;
+    img{
+      margin-top:10px;
+    }
+  }
+  .item2{
+    background: #6594af;
+    img{
+      margin-top:20px;
+    }
+  }
+}
+
+.section3{
+  padding-top:72px;
+  background: #000;
+  color: #fff;
+}
+
+.mod-box{
+  margin-bottom: 35px;
+  .tit{
+     height: 42px;
+    line-height: 42px;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+  }
+}
+.xhfw-mod{
+  position: relative;
+  height: 285px;
+  .tit{
+    width: 157px;
+    background: url("../images/tit_bg5.png") 0 0 no-repeat scroll;
+  }
+  .intro{
+    width: 395px;
+    margin-top:72px;
+    line-height: 28px;
+    font-size: 14px;
+  }
+  .pic{
+    position: absolute;
+    right: 68px;
+    top:-10px;
+  }
+}
+.wdkc-mod{
+  position: relative;
+
+  .tit{
+    width: 121px;
+    background: url("../images/tit_bg1.png") 0 0 no-repeat scroll;
+  }
+  .wdkc-bd{
+    margin-top:10px;
+    height: 260px;
+  }
+  .kc-wrap{
+    width: 444px;
+    overflow: hidden;
+  }
+  .kc-list{
+    width: 466px;
+    li{
+      float: left;
+      width: 93px;
+      margin:0 23px 20px 0;
+      text-align: center;
+    }
+  }
+  .right-box{
+    width: 420px;
+    line-height: 28px;
+    margin:44px 22px 0 0;
+    font-size: 14px;
+  }
+}
+
+.ouerusers{
+  position: relative;
+
+  .tit{
+    width: 121px;
+    background: url("../images/tit_bg6.png") 0 0 no-repeat scroll;
+  }
+  .intro{
+    padding:0 10px;
+    margin:78px 0 35px;
+    line-height: 28px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+}
+.pic-wrap{
+  width: 950px;
+  overflow: hidden;
+}
+.ouerusers-list{
+  width: 1010px;
+  li{
+    position: relative;
+    float: left;
+    width: 284px;
+    margin-right: 50px;
+    text-align: center;
+    p{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 25px;
+      line-height: 25px;
+      background: #000;
+      opacity: 0.65;
+      filter:alpha(opacity = 65);
+      a{
+        color: #fff;
+      }
+    }
+  }
+}
+
+.zzjg-mod{
+  position: relative;
+
+  .tit{
+    width: 121px;
+    background: url("../images/tit_bg2.png") 0 0 no-repeat scroll;
+  }
+  .intro{
+    width: 498px;
+    margin:85px 50px 0 0;
+    line-height: 28px;
+    font-size: 14px;
+  }
+}
+.zxkc-mod{
+  position: relative;
+
+  .tit{
+    width: 121px;
+    background: url("../images/tit_bg3.png") 0 0 no-repeat scroll;
+  }
+  .kc-list-wrap{
+    width: 952px;
+    margin:40px auto 0;
+  }
+  .kc-list{
+    li{
+      position: relative;
+      float: left;
+      width: 211px;
+      margin-right: 25px;
+      text-align: center;
+      a{
+        color: #7d9494;
+      }
+      .words{
+        margin-top:15px;
+      }
+    }
+  }
+}
+.zshy-mod{
+  margin-bottom: 0;
+  .tit{
+    width: 173px;
+    background: url("../images/tit_bg4.png") 0 0 no-repeat scroll;
+  }
+}
+.bottom-box-wrap{
+  background: url("../images/footer_bg2.png") 0 0 repeat-x scroll;
+  .bottom-box{
+    height: 385px;
+    background: url("../images/footer_gx.png") -80px 0 no-repeat scroll;
+  }
+  .find-kc{
+    height: 220px;
+    text-align: center;
+    h4{
+      height: 30px;
+      padding:50px 0;
+      font-size: 24px;
+      color: #1f80bf;
+    }
+  }
+}
