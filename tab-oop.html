@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        ul,li{
+            list-style:none;
+        }
+        .box{
+            width:300px;
+            margin:0 auto;
+        }
+        #tabHd{
+            background:#ccc;
+        }
+        #tabHd li{
+            display:inline-block;
+            height:30px;
+            line-height:30px;
+            padding:0 20px;
+            cursor:pointer;
+        }
+        #tabHd .active{
+            background:#f60;
+            color:#fff;
+        }
+        #tabBd{
+            padding:20px;
+            background:#eee;
+        }
+        #tabBd div{
+            display:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <ul id="tabHd">
+            <li class='active'>电视</li>
+            <li>电影</li>
+            <li>娱乐</li>
+        </ul>
+        <div id="tabBd">
+            <div style="display:block;">电视</div>
+            <div>电影</div>
+            <div>娱乐</div>
+        </div>
+    </div>
+
+    <script>
+        function Tab(opt){
+            /* opt.handlerHd
+            opt.handlerBd
+            opt.activeCls
+            opt.eventType
+             */
+            var defaults = {
+                handlerHd :'tabHd',
+                handlerBd :'tabBd',
+                activeCls:'active',
+                eventType:'click' 
+            }
+            defaults.handlerHd = opt.handlerHd || defaults.handlerHd;
+            defaults.handlerBd = opt.handlerBd || defaults.handlerBd;
+            defaults.activeCls = opt.activeCls || defaults.activeCls;
+            defaults.eventType = opt.eventType || defaults.eventType;
+
+            var tabHd = document.getElementById(defaults.handlerHd);
+            var tabHdLis = tabHd.getElementsByTagName('li');
+            var tabBd = document.getElementById(defaults.handlerBd);
+            var tabBdInner = tabBd.children;
+            for(var i=0;i<tabHdLis.length;i++){
+                tabHdLis[i].index = i;//自定义属性
+                tabHdLis[i]['on'+defaults.eventType] = function(){
+                    for(var k=0;k<tabHdLis.length;k++){
+                        tabHdLis[k].className = '';
+                        tabBdInner[k].style.display = 'none';
+                    }
+                    tabHdLis[this.index].className = defaults.activeCls;
+                    tabBdInner[this.index].style.display = 'block';
+                }
+            }
+        }
+        var myTab = new Tab({
+            handlerHd :'tabHd',
+            handlerBd :'tabBd',
+            activeCls:'active',
+            eventType:'mouseover' 
+        });
+
+</script>
+</body>
+
+</html>
