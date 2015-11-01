@@ -23,9 +23,46 @@
 
 			})
 	</script>
+	<script>
+		window.onload = function(){
+			var oTab = document.getElementById('tab'),
+				aBtn = oTab.getElementsByTagName('button'),
+				aTabd = oTab.getElementsByClassName('tab-bd')
+				index = 0;
+
+				for(var i = 0; i < aBtn.length; i++ ){
+					(function(i){
+							aBtn[i].onclick  = function(){
+								for(var j = 0; j < aBtn.length;j++){
+									aBtn[j].className = '';
+									aTabd[j].style.display = 'none';
+								}
+								this.className ='on';
+								aTabd[i].style.display = 'block';
+							}
+					})(i)
+				}
+		}
+	</script>
 </head>
 <body>
 	<button id="btn" aid="这是一个阿牛">按钮</button>
 	<button id="btn2">按钮2</button>
+
+
+	<div id="tab">
+		<button>按钮1</button>
+		<button>按钮2</button>
+		<button>按钮3</button>
+		<div class="tab-bd">
+			1
+		</div>
+		<div class="tab-bd">
+			2
+		</div>
+		<div class="tab-bd">
+			3
+		</div>
+	</div>
 </body>
 </html>
