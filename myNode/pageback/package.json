@@ -1,0 +1,19 @@
+{
+  "name": "hello",
+  "version": "1.0.0",
+  "description": "this is a hello",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://www.github/leesx"
+  },
+  "keywords": [
+    "hello",
+    "node"
+  ],
+  "author": "leesx",
+  "license": "MIT"
+}

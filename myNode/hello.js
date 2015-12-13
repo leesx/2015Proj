@@ -1,3 +1,4 @@
+
 function Hello(){
 	var name = 'lishangxi';
 	var sex = '男'

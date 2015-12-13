@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+    <meta name="apple-touch-fullscreen" content="YES" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            position: relative;
+            overflow: hidden;
+        }
+        #nav{
+            position: relative;
+            width: 100%;
+            height: 40px;
+        }
+        #nav li{
+            float: left;
+            display: inline-block;
+            width: 100px;
+            height: 30px;
+            line-height:30px;
+            text-align: center;
+            border:1px solid #0ca6bd;
+        }
+        .tabs-wp {
+            position: relative;
+            height: 30px;
+            margin:0 10px;
+            background-color: #f61d4b;
+            color: #fff;
+            overflow: hidden;
+        }
+        .tabs-wp .tabs-bd {
+            white-space: nowrap;
+            height: 100%;
+            overflow-y: hidden;
+        }
+        #wrap{
+            position: relative;
+            background: #0ca6bd;
+            height: 100%;
+        }
+        #main{
+            position: relative;
+            width:80%;
+            height: 300%;
+            margin:0 auto;
+            transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) 0s;
+        }
+        #main > div{
+            width:100px;
+            height: 100px;
+            margin:10px;
+            background: #1B465D;
+        }
+        /*transform-origin: 0px 0px 0px; transform: translate(0, 0px) translateZ(0px); transition: transform 0.78125s cubic-bezier(0.33, 0.66, 0.66, 1) 0s; -webkit-transition: transform 0.78125s cubic-bezier(0.33, 0.66, 0.66, 1) 0s;*/
+    </style>
+</head>
+<body>
+<div class="tabs-wp">
+    <div id="box" class="clearfix xs-cnt tabs-bd" style="position: absolute; transform: translate(0, 0px) translateZ(0px);">
+        <a class="tab J_Tab J_TabItem" data-id="1000" data-index="1" data-from="nav" data-catid="152">女装</a>
+        <a class="tab J_Tab J_TabItem" data-id="7000" data-index="2" data-from="nav" data-catid="545">男装</a>
+        <a class="tab J_Tab J_TabItem" data-id="3000" data-index="3" data-from="nav" data-catid="154">鞋包</a>
+        <a class="tab J_Tab J_TabItem" data-id="4000" data-index="4" data-from="nav" data-catid="544">内衣</a>
+        <a class="tab J_Tab J_TabItem" data-id="42000" data-index="5" data-from="nav" data-catid="355">饰品</a>
+        <a class="tab J_Tab J_TabItem" data-id="38000" data-index="6" data-from="nav" data-catid="287">运动</a>
+        <a class="tab J_Tab J_TabItem" data-id="2000" data-index="7" data-from="nav" data-catid="153">美妆</a>
+        <a class="tab J_Tab J_TabItem" data-id="230000" data-index="8" data-from="nav" data-catid="937">童装</a>
+        <a class="tab J_Tab J_TabItem" data-id="5000" data-index="9" data-from="nav" data-catid="263">零食</a>
+        <a class="tab J_Tab J_TabItem" data-id="6000" data-index="10" data-from="nav" data-catid="251">母婴</a>
+        <a class="tab J_Tab J_TabItem" data-id="37000" data-index="11" data-from="nav" data-catid="286">百货</a>
+        <a class="tab J_Tab J_TabItem" data-id="36000" data-index="12" data-from="nav" data-catid="285">汽车</a>
+        <a class="tab J_Tab J_TabItem" data-id="34000" data-index="13" data-from="nav" data-catid="283">家电</a>
+        <a class="tab J_Tab J_TabItem" data-id="43000" data-index="14" data-from="nav" data-catid="356">数码</a>
+        <a class="tab J_Tab J_TabItem" data-id="225000" data-index="15" data-from="nav" data-catid="831">家装</a>
+        <a class="tab J_Tab J_TabItem" data-id="35000" data-index="16" data-from="nav" data-catid="284">家纺</a>
+    </div>
+
+</div>
+<div id="wrap">
+    <div id="main">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<script>
+    var oBox = document.querySelector('#box');
+    var pre = 0;
+    oBox.addEventListener('touchstart',function(e){
+        e.preventDefault();
+        this.startTime = new Date().getTime();
+        console.log(getTransform(this));
+        this.startX = e.touches[0].pageX;
+        this.cue3dX = getTransform(this);
+        oBox.style.webkitTransition = 'none'
+    },false);
+    oBox.addEventListener('touchmove',function(e){
+        e.preventDefault();
+        pre = e.touches[0].pageX - this.startX + this.cue3dX;
+        oBox.style.webkitTransform = 'translate3d('+ pre +'px, 0px, 0px)';
+
+    },false);
+    oBox.addEventListener('touchend',function(e){
+        e.preventDefault();
+        this.endTime = new Date().getTime();
+        var disTime = (this.endTime - this.startTime)/1000;
+        console.log('时间差：'+disTime);
+        if(disTime < 0.3){
+            oBox.style.webkitTransition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) 0s';
+        }
+        //this.startX = 0;
+        if(getTransform(this)>0){
+            oBox.style.webkitTransform = 'translate3d(0px, 0px, 0px)';
+        }else if(getTransform(this)<-283){
+            oBox.style.webkitTransform = 'translate3d(-283px, 0px, 0px)';
+        }else{
+            oBox.style.webkitTransform = 'translate3d('+ (e.changedTouches[0].pageX - this.startX + this.cue3dX) +'px, 0, 0)';
+
+        }
+
+    },false);
+
+    function getTransform(ele) {
+        /*return window.getComputedStyle(ele)['webkitTransform'].match(/\-?[0-9]+\.?[0-9]*!/g)[4]-0;*/
+        return new WebKitCSSMatrix(getComputedStyle(ele, null).WebkitTransform).e
+    }
+    /*matrix(1, 0, 0, 1, 0, 0)*/
+    window.getComputedStyle(oBox)['webkitTransform'].match(/matrix(1, 0, 0, 1, (\d+), (\d+))/);
+    console.log(window.getComputedStyle(oBox)['webkitTransform'].match(/\-?[0-9]+\.?[0-9]*/g)[4]);
+
+
+</script>
+<script>
+
+    /*
+    *  document.documentElement.getBoundingClientRect();
+    * ClientRect {height: 667, width: 375, left: 0, bottom: 667, right: 375…}bottom: 667height: 667left: 0right: 375top: 0width: 375
+    * */
+</script>
+<script>
+    var oMain =document.querySelector('#main');
+    oMain.addEventListener('touchstart',function(e){
+        oMain.startY = e.touches[0].pageY;
+        oMain.style.webkitTransition = 'none'
+    },false);
+    oMain.addEventListener('touchmove',function(e){
+        e.preventDefault();
+        oMain.curY = e.touches[0].pageY;
+        console.log(e.touches[0].pageY)
+        if(oMain.curY > oMain.startY){
+            oMain.style.webkitTransform = 'translate(0px,'+(oMain.curY - oMain.startY)/3+'px)';
+        }
+
+    },false)
+    oMain.addEventListener('touchend',function(e){
+        e.preventDefault();
+        oMain.startY = 0;
+        oMain.curY = 0;
+        oMain.style.webkitTransform = 'translate(0px,0px)';
+        oMain.style.webkitTransition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1) 0s';
+    },false)
+</script>
+</body>
+</html>
